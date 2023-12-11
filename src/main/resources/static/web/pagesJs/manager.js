@@ -14,10 +14,10 @@ this.loadData()
 },
 methods:{
     loadData(){
-        axios("/clients")
+        axios("/api/clients")
         .then(response=>{
             this.data=response
-            this.clients=response.data._embedded.clients})
+        })
         .catch(error=> console.log(error))
     },
     createClient(event){
@@ -27,10 +27,10 @@ methods:{
             "lastName":this.lastName,
            "email":this.email,
         }
-        axios.post("/clients",anotherClient
+        axios.post("api/clients",anotherClient
         )
         .then(response=>{
-            this.clients=response
+            this.data=response
             this.loadData()
         })
         .catch(error=>console.log(error))

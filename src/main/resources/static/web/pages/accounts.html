@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+    <title>Accounts</title>
+</head>
+
+<body>
+    <header class="w-full bg-rosewood md:flex flex-row justify-between px-2">
+        <div class="pb-2 ">
+          <img class="w-20 h-20 rounded-xl" src="../images/favicon.png" alt="logo">
+          <h2 class="text-lg text-white">UNITY BANK</h2>
+        </div>
+        <div class="flex flex-col justify-between items-center pb-3 font-semibold md:flex-row md:gap-24">
+            <a class=" hover:bg-caf-noir rounded-md py-1 text-white text-xl px-1 " href="http://localhost:8080/web/pages/accounts.html">Accounts</a>
+            <a class="hover:bg-caf-noir rounded-md py-1 text-white text-xl px-1 "href="#">Cards</a>
+            <a class="hover:bg-caf-noir rounded-md py-1 text-white text-xl px-1 " href="#">Loans</a>
+            <a class=" hover:bg-caf-noir rounded-md py-1 text-white text-xl px-1 " href="#">Transactions</a>
+        </div>
+        <a class="flex justify-start items-center h-24" href=""><img class="w-10 h-10" src="../images/cerrar sesion.png" alt="cerrar sesion"></a>
+    </header>
+    <main id="app" class="bg-silver min-h-screen flex flex-col pt-2 pb-10">
+        <h1 class="w-full text-4xl font-semibold pt-10 pb-3 md:pl-28">Welcome,{{data.firstName}}!</h1>
+        <div id="Banner" class="hidden lg:flex relative " >
+            <img class="h-[360px] w-full object-top object-cover" src="../images/banner.jpg" alt="banner" id="bannerImg">
+        </div>
+        <div class="flex flex-col pl-2 gap-8 md:flex-row md:justify-center md:pt-10 md:gap-28">
+        <template v-if="accounts.length > 0" v-for="account in accounts">
+        <article class="flex flex-col bg-caf-noir text-white px-2 w-[300px] h-[180px] gap-4 rounded-md">
+            <h2 class="text-lg font-semibold">Account Number: {{account.number}}</h2>
+            <h2 class="text-lg font-semibold">Amount:</h2>
+            <p  class="text-xl font-semibold">{{formatBudget(account.balance)}}</p>
+            <h2 class="text-lg font-semibold">Creation Date: {{account.creationDate}}</h2>
+        </article>
+        </template>
+    </div>
+    </main>
+    <footer class="bg-rosewood">
+        <h2 class="text-center text-2xl">All rights reserved</h2>
+    </footer>
+    <script type="module" src="../pagesJs/tailwind.config.extension.js"></script>
+    <script type="module" src="../pagesJs/tailwind.config.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../pagesJs/account.js"></script>
+
+</body>
+
+</html>
