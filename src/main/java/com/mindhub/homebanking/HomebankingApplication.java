@@ -2,7 +2,10 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.Transaction;
+import com.mindhub.homebanking.models.TransactionType;
 import com.mindhub.homebanking.repositories.AccountRepository;
+import com.mindhub.homebanking.repositories.TransactionRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +21,7 @@ public static void main(String[] args) {
 	}
 	@Bean
 public CommandLineRunner initData(ClientsRepositories clientsRepositories,
-								  AccountRepository accountRepository){
+								  AccountRepository accountRepository, TransactionRepository transactionRepository){
 		return args -> {
 			Client clientOne=new Client("Melba","Morel","melba@mindhub.com");
 			clientsRepositories.save(clientOne);
@@ -38,6 +41,24 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 			accountRepository.save(accountYani1);
 			accountRepository.save(accountYani2);
 			System.out.println(clientTwo);
+			Transaction firstTransaction=new Transaction( -3000L,LocalDate.now(),"payment of expenses", TransactionType.DEBIT);
+			Transaction secondTransaction=new Transaction(4000L,LocalDate.now(),"payment per sale",TransactionType.CREDIT);
+			accountMel1.addTransaccion(firstTransaction);
+			accountMel1.addTransaccion(secondTransaction);
+			Transaction transaction1=new Transaction(12000L,LocalDate.now(),"salary payments",TransactionType.CREDIT);
+			Transaction transaction2=new Transaction(-4500L,LocalDate.now(),"electric energy payment",TransactionType.DEBIT);
+			accountMel2.addTransaccion(transaction1);
+			accountMel2.addTransaccion(transaction2);
+			transactionRepository.save(firstTransaction);
+			transactionRepository.save(secondTransaction);
+			transactionRepository.save(transaction1);
+			transactionRepository.save(transaction2);
+			Transaction transactionOtherClient=new Transaction(-1000L,LocalDate.now(),"payment of expenses",TransactionType.DEBIT);
+			Transaction transactionOtherClient2=new Transaction(7000L,LocalDate.now(),"payment for shoe sales",TransactionType.CREDIT);
+			accountYani1.addTransaccion(transactionOtherClient);
+			accountYani2.addTransaccion(transactionOtherClient2);
+			transactionRepository.save(transactionOtherClient);
+			transactionRepository.save(transactionOtherClient2);
 		};
 
 }
