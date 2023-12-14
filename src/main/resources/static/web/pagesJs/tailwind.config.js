@@ -4,9 +4,9 @@ tailwind.config = {
         
         extend: {
             colors: {
-                'rosewood': '#651715ff',
-                'caf-noir': '#593621ff',
-                'silver': '#bbadadff',
+                'black-eerie': '#222323ff',
+                'nyanza': '#e9ffd6ff',
+                'green-f': '#345d18ff',
             },
         },
     }

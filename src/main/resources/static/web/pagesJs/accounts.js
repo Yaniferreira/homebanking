@@ -5,6 +5,7 @@ data(){
          data:[],
          accounts:[],
          id:1,
+         loans:[],
         }
 },
 created(){
@@ -16,8 +17,10 @@ methods:{
         .then(response=>{
             this.data=response.data
             this.accounts=this.data.accounts
+            this.loans=this.data.loans
             console.log(this.data);
             console.log(this.accounts);
+            console.log(this.loans);
         })
         .catch(error=> console.log(error))
     },
