@@ -20,7 +20,8 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 								  AccountRepository accountRepository,
 								  TransactionRepository transactionRepository,
 								  LoanRepository loanRepository,
-								  ClientLoanRepository clientLoanRepository){
+								  ClientLoanRepository clientLoanRepository,
+								  CardRepository cardRepository){
 		return args -> {
 			Client clientOne=new Client("Melba","Morel","melba@mindhub.com");
 			clientsRepositories.save(clientOne);
@@ -80,6 +81,18 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 			clientLoanRepository.save(loanMelPersonal);
 			clientLoanRepository.save(loanYaniPersonal);
 			clientLoanRepository.save(loanYaniAuto);
+			Card cardMel1= new Card(CardType.DEBIT,"4000 0012 3456 7899","001",
+					LocalDate.now(),LocalDate.now().plusYears(5),"Melba Morel",CardColor.GOLD);
+			Card cardMel2= new Card(CardType.CREDIT,"5412 3414 7892 6391","002",
+					LocalDate.now(),LocalDate.now().plusYears(5),"Melba Morel",CardColor.TITANIUM);
+			Card cardYani1=new Card(CardType.CREDIT,"4575 6568 5785 6787","003",
+					LocalDate.now(),LocalDate.now().plusYears(5),"Yani Ferreira",CardColor.SILVER);
+			clientOne.addCard(cardMel1);
+			clientOne.addCard(cardMel2);
+			clientTwo.addCard(cardYani1);
+			cardRepository.save(cardMel1);
+			cardRepository.save(cardMel2);
+			cardRepository.save(cardYani1);
 		};
 
 }

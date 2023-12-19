@@ -6,44 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styleCarrusel.css">
     <title>Accounts</title>
 </head>
-
-<body>
-    <header class="w-full bg-green-f md:flex flex-row justify-between px-2">
-        <div class="pb-2 ">
-          <img class="w-20 h-20 rounded-xl" src="../images/favicon.png" alt="logo">
-          <h2 class="text-lg text-white">UNITY BANK</h2>
-        </div>
-        <div class="flex flex-col justify-between items-center pb-3 font-semibold md:flex-row md:gap-24">
-            <a class="hover:bg-black-eerie rounded-xl py-1 text-white text-xl px-3 " href="http://localhost:8080/web/pages/accounts.html">Accounts</a>
-            <a class="hover:bg-black-eerie rounded-xl py-1 text-white text-xl px-3 "href="#">Cards</a>
-            <a class="hover:bg-black-eerie rounded-xl py-1 text-white text-xl px-3 " href="#">Loans</a>
-            <a class="hover:bg-black-eerie rounded-xl py-1 text-white text-xl px-3 " href="#">Transactions</a>
-        </div>
-        <a class="flex justify-start items-center h-24" href=""><img class="w-10 h-10" src="../images/cerrar sesion.png" alt="cerrar sesion"></a>
+<body class=" flex flex-col bg-white">
+    <header class="w-full">
+        <div class="pb-2 flex flex-row items-center ">
+            <img class="w-12 h-12 rounded-md" src="../images/favicon.png" alt="logo">
+            <h2 class="text-lg text-center pl-3 ">UNITY BANK</h2>
+          </div>
+        <ul class="nav-list pt-2 ">
+            <li><a href="#" class=" active text-lg">Accounts</a></li>
+            <li><a href="http://localhost:8080/web/pages/cards.html" class="text-lg" >Cards</a></li>
+            <li><a href="" class="text-lg">Loans</a></li>
+            <li><a href="" class="text-lg">Transactions</a></li>
+        </ul>
+        <a href="" class="px-6 pt-2" ><img class="w-10 h-10" src="../images/cerrar sesion.png" alt="cerrar sesion"></a>
     </header>
-    <main id="app" class="bg-nyanza min-h-screen flex flex-col pt-2 pb-10">
-        <h1 class="w-full text-4xl font-semibold pt-10 pb-3 md:pl-28">Welcome,{{data.firstName}}!</h1>
-        <div id="Banner" class="hidden lg:flex relative " >
-            <img class="h-[350px] w-full object-top object-cover" src="../images/banner.jpg" alt="banner" id="bannerImg">
+    <main id="app" class=" min-h-screen flex flex-col pt-10 pb-10 h-1/2">
+        <h1 class="w-full text-4xl font-semibold pt-10 pb-3 md:pl-28">Welcome, {{data.firstName}}!</h1>
+        <div class="carrousel">
+            <div class="grande">
+            <img src="../images/banner1-merrycristmas.jpg" alt="Imagen 1" class="img">
+                
+            </div>
         </div>
-        <div class="flex flex-col pl-2 gap-8 md:flex-row md:justify-center md:pt-10 md:pb-8 md:gap-28">
-        <template v-if="accounts.length > 0" v-for="account in accounts">
-        <article class="flex flex-col items-center bg-black-eerie  px-2 w-[300px] h-[180px] gap-4 rounded-md">
-            <h2 class="text-lg text-white font-semibold pt-2">Account Number: {{account.number}}</h2>
-            <h2 class="text-lg text-white font-semibold">Amount:</h2>
-            <p  class="text-xl text-white font-semibold">{{formatBudget(account.balance)}}</p>
-            <h2 class="text-lg text-white font-semibold">Creation Date: {{account.creationDate}}</h2> 
-            <a class="text-lg text-white text-center font-semibold bg-black-eerie h-7 mt-5 rounded-xl w-[180px] pb-2" :href="'account.html?id='+account.id">my transactions</a>  
+        <div class="flex flex-col justify-around md:flex-row">
+            <template v-if="accounts.length > 0" v-for="account in accounts">
+        <div class="flex flex-col pl-3 w-1/2 gap-4 md:flex-row md:justify-center md:pt-10 md:pb-8 md:gap-28">
+        <article class="flex flex-col w-[220px] h-[210px] pb-4 items-center border border-black  px-2 md:w-[300px] md:h-[180px] gap-4 rounded-md">
+            <h2 class="text-sm md:text-lg  font-semibold pt-2">Account Number: {{account.number}}</h2>
+            <h2 class="text-sm md:text-lg  font-semibold">Amount:</h2>
+            <p  class="text-sm md:text-xl  font-semibold">{{formatBudget(account.balance)}}</p>
+            <h2 class="text-sm md:text-lg  font-semibold">Creation Date: {{account.creationDate}}</h2> 
+            <a class="text-sm pepito md:text-lg hover:bg-orange-500 justify-center text-center font-semibold h-11 mt-5 rounded-2xl w-[180px]" :href="'account.html?id='+account.id">my transactions</a>  
         </article>
-        </template>
     </div>
-    <div class="flex flex-col justify-center items-center pt-6" v-if="loans.length > 0">
-        <h2 class="w-full text-4xl font-semibold pt-10 pb-3 md:pl-28">Your Loans</h2>
-        <table class="w-[300px] text-xs md:w-[480px] border text-white md:text-lg bg-black-eerie text-left overflow-x-auto">
+</template>
+    <div class="flex flex-col w-1/2 justify-start items-center pt-6" v-if="loans.length > 0">
+        <h2 class="w-full text-2xl text-center text-orange-600 font-semibold pt-10 pb-3">Your Loans</h2>
+        <table class="w-[250px] items-center text-xs md:w-[480px] border justify-center  md:text-lg  text-left overflow-x-auto">
             <thead>
-                <tr>
+                <tr class="bg-orange-100">
                     <th>Name</th>
                     <th>Amount</th>
                     <th>Payments</th>
@@ -51,7 +56,7 @@
             </thead>
             <tbody>
                 <template v-for="loan in loans">
-                <tr class="border-t-2 border-b-0 ">
+                <tr class="border-t-2 border-b-0 bg-orange-200">
                     <td>{{loan.name}}</td>
                     <td>{{formatBudget(loan.amount)}}</td>
                     <td>{{loan.payments}}</td>
@@ -60,12 +65,13 @@
             </tbody>
         </table>
     </div>
-    <div class="flex flex-col justify-center items-center pt-6" v-else>
-        <h2 class="w-full text-4xl font-semibold pt-10 pb-3 md:pl-28">Does Not Have Current Loans</h2>
+    <div class="flex justify-center items-center pt-6" v-else>
+        <h2 class="w-full text-4xl text-center font-semibold text-orange-600 pt-10 pb-3 ">Does Not Have Current Loans</h2>
+    </div>
     </div>
     </main>
-    <footer class="bg-green-f pt-5">
-        <h2 class="text-center text-2xl text-white">All rights reserved</h2>
+    <footer class=" pt-5 bg-white">
+        <h2 class="text-center text-2xl">All rights reserved</h2>
     </footer>
     <script type="module" src="../pagesJs/tailwind.config.extension.js"></script>
     <script type="module" src="../pagesJs/tailwind.config.js"></script>
