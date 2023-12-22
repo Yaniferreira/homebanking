@@ -3,9 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../web/pagesCss/index.css">
+    <title>Home</title>
 </head>
-<body>
-    
+<body >
+    <div id="app">
+    <header>
+        <button v-on:click="showModal" class="flex flex-col w-full items-center justify-center">
+            <img class="h-[3rem] w-[3rem] justify-end bg-white" src="../web/images/login.png" alt="images-Access">
+            <h1 class="font-bold">Sign in</h1>
+        </button>
+    </header>
+    <main >
+        <!-- Modal Login -->
+        <div  v-if="modalVisible"
+        class=" w-full  h-screen  bg-slate-400/40  fixed inset-0 z-10 flex justify-center items-center ">
+        <div class="w-11/12 h-auto md:w-3/4 md:h-3/4 flex justify-center items-center 
+         rounded-2xl bg-beige shadow-lg  text-blue hover:text-orange">
+            <div class=" w-full h-full flex flex-end flex-row-reverse ">
+
+                <div class="container" id="container">
+                    <div class="form-container sign-up-container">
+                        <button v-on:click="closeModal()" class=" w-10 h-10 mt-1 mr-2 z-40 absolute top-0 right-0">
+                            <img src="../web/images/cerrarmodal.png" class="bg-beige p-1 rounded-lg" alt="cerrarModal">
+                        </button>
+                        <form  action="#">
+                            <h2 class="font-bold mb-2 text-sm">Create Account</h2>
+                            <label for="firstName">First Name</label>
+                            <input @input="" type="text" id="name" placeholder="Name" />
+                            <label for="lastName">Last Name</label>
+                            <input @input="getLastName" type="text" id="lastName" placeholder="Last Name" />
+                            <label for="emailSignup">Email</label>
+                            <input @input="getEmail" type="email" id="emailSignup" placeholder="Email" />
+                            <label for="passwordSignup">Password</label>
+                            <div class="flex">
+                                <input @input="getPassword" type="password" id="passwordSignup" placeholder="Password" />
+                                <i class="far fa-eye cursor-pointer" @click="togglePassword()" id="togglePassword"></i>
+                            </div>
+                            <button class="px-2 mt-2" type="submit" @click.prevent="signup()">Sign Up</button>
+                        </form>
+                    </div>
+                    <div class="form-container sign-in-container">
+                        <button v-on:click="closeModal()" class="w-10 h-10 mt-1 mr-2 z-40 absolute top-0 right-0">
+                            <img src="../web/images/cerrarmodal.png" class="bg-beige p-1 rounded-lg" alt="cerrarModal">
+                        </button>
+                        <form  action="#">
+                            <h2 class="font-bold mb-2 text-sm">Sign in</h2>
+                            <label class="w-10" for="emailSignIn">Email</label>
+                            <input @input="getEmail" :value="email" type="email" id="emailSignIn" placeholder="Email" />
+                            <label for="passwordSignIn">Password</label>
+                            <div class="flex" >
+                            <input @input="getPassword" :value="password" type="password" id="passwordSignIn" placeholder="Password" />
+                            <i class="far fa-eye cursor-pointer" @click="togglePassword()" id="togglePassword"></i>
+                            </div>
+                            <button class="px-2 mt-2" type="submit" @click.prevent="signin()">Sign In</button>
+                        </form>
+                    </div>
+                    <div class="overlay-container">
+                        <div class="overlay">
+                            <div class="overlay-panel overlay-left">
+                                <h1>Welcome Back!</h1>
+                                <p>To keep connected with us please login with your personal info</p>
+                                <button @click="signInButton" class="px-2 mt-2 ghost">Sign In</button>
+                            </div>
+                            <div class="overlay-panel overlay-right">
+                                <h1>Hello, Friend!</h1>
+                                <p>Enter your personal details and start journey with us</p>
+                                <button @click="signUpButton" class="px-2 mt-2 ghost">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </main>
+        <footer class=" pt-5 ">
+            <h2 class="text-center text-2xl">All rights reserved</h2>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="./pagesJs/tailwind.config.extension.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./pagesJs/index.js"></script>
 </body>
 </html>

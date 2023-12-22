@@ -10,6 +10,7 @@ data(){
 },
 created(){
 this.loadData()
+this.logout()
 },
 methods:{
     loadData(){
@@ -23,6 +24,15 @@ methods:{
             console.log(this.cards);
         })
         .catch(error=> console.log(error))
+    },
+    logout(){
+        axios.post("/api/logout")
+            .then(response => {
+                console.log(response)
+                if (response.status == 200) {
+                    window.location.href = "./login.html"
+                }
+            })
     },
 
 }

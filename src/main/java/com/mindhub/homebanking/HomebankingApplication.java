@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -15,6 +17,8 @@ public class HomebankingApplication {
 public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
+	@Autowired
+	public PasswordEncoder passwordEncoder;
 	@Bean
 public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 								  AccountRepository accountRepository,
@@ -23,7 +27,9 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 								  ClientLoanRepository clientLoanRepository,
 								  CardRepository cardRepository){
 		return args -> {
-			Client clientOne=new Client("Melba","Morel","melba@mindhub.com");
+
+			Client clientOne=new Client("Melba","Morel","melba@mindhub.com",
+					passwordEncoder.encode("Melba001"));
 			clientsRepositories.save(clientOne);
 			System.out.println(clientOne);
 			Account accountMel1=new Account("VIN001", LocalDate.now(),5000);
@@ -32,7 +38,8 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 			clientOne.addAccount(accountMel2);
 			accountRepository.save(accountMel1);
 			accountRepository.save(accountMel2);
-			Client clientTwo=new Client("Yani","Ferreira","yaniferreira@gmail.com");
+			Client clientTwo=new Client("Yani","Ferreira","yaniferreira@gmail.com",
+					passwordEncoder.encode("Yani002"));
 			clientsRepositories.save(clientTwo);
 			Account accountYani1=new Account("VIN003",LocalDate.now().plusDays(3),8000);
 			Account accountYani2=new Account("VIN004",LocalDate.now().plusDays(5),3000);

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./styleCarrusel.css">
+    <link rel="stylesheet" href="../pagesCss/style.css">
+    <link rel="stylesheet" href="../pagesCss/styleCarrusel.css">
     <title>Accounts</title>
 </head>
 <body class=" flex flex-col bg-white">
@@ -22,7 +22,7 @@
             <li><a href="" class="text-lg">Loans</a></li>
             <li><a href="" class="text-lg">Transactions</a></li>
         </ul>
-        <a href="" class="px-6 pt-2" ><img class="w-10 h-10" src="../images/cerrar sesion.png" alt="cerrar sesion"></a>
+        <a href=""  v-on:click="logout()" class="px-6 pt-2" ><img class="w-10 h-10" src="../images/cerrar sesion.png" alt="cerrar sesion"></a>
     </header>
     <main id="app" class=" min-h-screen flex flex-col pt-10 pb-10 h-1/2">
         <h1 class="w-full text-4xl font-semibold pt-10 pb-3 md:pl-28">Welcome, {{data.firstName}}!</h1>
