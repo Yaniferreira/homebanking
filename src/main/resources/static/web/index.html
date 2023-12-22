@@ -11,7 +11,7 @@
 <body >
     <div id="app">
     <header>
-        <button v-on:click="showModal" class="flex flex-col w-full items-center justify-center">
+        <button v-on:click="showModal" class="flex flex-col border-none w-full items-center justify-center">
             <img class="h-[3rem] w-[3rem] justify-end bg-white" src="../web/images/login.png" alt="images-Access">
             <h1 class="font-bold">Sign in</h1>
         </button>
@@ -32,9 +32,9 @@
                         <form  action="#">
                             <h2 class="font-bold mb-2 text-sm">Create Account</h2>
                             <label for="firstName">First Name</label>
-                            <input @input="" type="text" id="name" placeholder="Name" />
+                            <input @input="getfirstName" type="text" id="firstName" placeholder="First Name" />
                             <label for="lastName">Last Name</label>
-                            <input @input="getLastName" type="text" id="lastName" placeholder="Last Name" />
+                            <input @input="getlastName" type="text" id="lastName" placeholder="Last Name" />
                             <label for="emailSignup">Email</label>
                             <input @input="getEmail" type="email" id="emailSignup" placeholder="Email" />
                             <label for="passwordSignup">Password</label>
@@ -42,7 +42,7 @@
                                 <input @input="getPassword" type="password" id="passwordSignup" placeholder="Password" />
                                 <i class="far fa-eye cursor-pointer" @click="togglePassword()" id="togglePassword"></i>
                             </div>
-                            <button class="px-2 mt-2" type="submit" @click.prevent="signup()">Sign Up</button>
+                            <button class="px-2 mt-2" type="submit" @click.prevent="register()">Sign Up</button>
                         </form>
                     </div>
                     <div class="form-container sign-in-container">

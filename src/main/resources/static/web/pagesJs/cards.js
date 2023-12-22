@@ -10,11 +10,10 @@ data(){
 },
 created(){
 this.loadData()
-this.logout()
 },
 methods:{
     loadData(){
-        axios.get("/api/clients/"+this.id)
+        axios.get("/api/clients/current")
         .then(response=>{
             this.data=response.data
             this.accounts=this.data.accounts
@@ -30,7 +29,7 @@ methods:{
             .then(response => {
                 console.log(response)
                 if (response.status == 200) {
-                    window.location.href = "./login.html"
+                    window.location.href = "/web/index.html"
                 }
             })
     },

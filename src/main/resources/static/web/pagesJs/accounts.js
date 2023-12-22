@@ -9,7 +9,6 @@ data(){
 },
 created(){
 this.loadData()
-this.logout()
 },
 
 methods:{
@@ -30,7 +29,7 @@ methods:{
             .then(response => {
                 console.log(response)
                 if (response.status == 200) {
-                    window.location.href = "./login.html"
+                    window.location.href = "/web/index.html"
                 }
             })
     },

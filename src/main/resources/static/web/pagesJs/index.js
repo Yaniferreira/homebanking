@@ -3,7 +3,7 @@ const app = Vue.createApp({
         return {
             data: [],
             firstName: "",
-            lastname: "",
+            lastName: "",
             email: "",
             password: "",
             isSignUpActive: false,
@@ -22,19 +22,11 @@ const app = Vue.createApp({
               
             })
         },
-        signup(){
-            axios.post("/api/signup?name=" + this.name + "&lastname=" + this.lastname + "&email=" + this.email + "&password=" + this.password)
-            .then(response => {
-                console.log("response", response)
-                window.location.href="src/main/resources/static/pages/accounts.html"
-            })
-        },
 		register() {
             axios.post("/api/clients?firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
                 .then(response => {
                     console.log("registered" + this.email);
-                    console.log(response.data);
-                    this.login();   
+                    window.location.href="/web/pages/accounts.html"  
                 })
                 .catch(error => console.log(error))
         },
@@ -43,8 +35,8 @@ const app = Vue.createApp({
 			console.log(this.firstName);
         },
 
-        getLastName(event){
-            this.getLastName= event.target.value
+        getlastName(event){
+            this.lastName= event.target.value
 			console.log(this.lastName);
         },
         getEmail(event){
