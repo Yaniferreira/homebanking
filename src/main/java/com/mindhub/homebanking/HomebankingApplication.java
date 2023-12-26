@@ -27,9 +27,10 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 								  ClientLoanRepository clientLoanRepository,
 								  CardRepository cardRepository){
 		return args -> {
-
+			Client clientAdmin=new Client("Pedro","Rodriguez","pedro@mindhub.com", passwordEncoder.encode("pedro"),RoleType.ADMIN);
+			clientsRepositories.save((clientAdmin));
 			Client clientOne=new Client("Melba","Morel","melba@mindhub.com",
-					passwordEncoder.encode("Melba001"));
+					passwordEncoder.encode("Melba001"),RoleType.CLIENT);
 			clientsRepositories.save(clientOne);
 			System.out.println(clientOne);
 			Account accountMel1=new Account("VIN001", LocalDate.now(),5000);
@@ -39,7 +40,7 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 			accountRepository.save(accountMel1);
 			accountRepository.save(accountMel2);
 			Client clientTwo=new Client("Yani","Ferreira","yaniferreira@gmail.com",
-					passwordEncoder.encode("Yani002"));
+					passwordEncoder.encode("Yani002"),RoleType.CLIENT);
 			clientsRepositories.save(clientTwo);
 			Account accountYani1=new Account("VIN003",LocalDate.now().plusDays(3),8000);
 			Account accountYani2=new Account("VIN004",LocalDate.now().plusDays(5),3000);

@@ -17,16 +17,18 @@ public class Client {
     @OneToMany(mappedBy = "client",fetch = FetchType.EAGER)
     private Set<Card> cards= new HashSet<>();
     private String password;
-    private boolean admin= false;
+    private RoleType role;
 
     public Client() {
     }
 
-    public Client(String firstName, String lastName, String email,String password) {
+
+    public Client(String firstName, String lastName, String email, String password,RoleType role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.role = role;
 
     }
 
@@ -65,14 +67,6 @@ public class Client {
         this.password = password;
     }
 
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
     public Set<Account> getAccounts() {
         return accounts;
     }
@@ -87,6 +81,14 @@ public class Client {
     public void addClientLoan (ClientLoan clientLoan){
         clientLoan.setClient(this);
         this.clientLoans.add(clientLoan);
+    }
+
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
     }
 
     public Set<Card> getCards() {

@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.ClienDTO;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.RoleType;
 import com.mindhub.homebanking.repositories.ClientsRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,7 +57,7 @@ public class ClientController {
             return new ResponseEntity<>("Email already on use", HttpStatus.FORBIDDEN);
         }
 
-        Client client = new Client(firstName,lastName,email,passwordEncoder.encode(password));
+        Client client = new Client(firstName,lastName,email,passwordEncoder.encode(password), RoleType.CLIENT);
         clientsRepositories.save(client);
 
         return new ResponseEntity<>("Client registered succesfully", HttpStatus.CREATED);

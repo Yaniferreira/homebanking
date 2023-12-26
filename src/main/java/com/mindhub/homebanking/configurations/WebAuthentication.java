@@ -24,22 +24,15 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             Client client = clientsRepositories.findByEmail(inputName);
 
             if (client != null) {
-                if (client.isAdmin()){
-                    return new User(client.getEmail(), client.getPassword(),
-
-                            AuthorityUtils.createAuthorityList("ADMIN"));
-                }
 
                 return new User(client.getEmail(), client.getPassword(),
 
-                        AuthorityUtils.createAuthorityList("CLIENT"));
-
+                        AuthorityUtils.createAuthorityList(client.getRole().toString()));
             } else {
 
                 throw new UsernameNotFoundException("Unknown user: " + inputName);
 
             }
-
         });
 
     }
@@ -49,4 +42,3 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     }
 
 }
-

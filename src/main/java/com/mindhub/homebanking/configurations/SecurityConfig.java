@@ -40,7 +40,8 @@ public class SecurityConfig {
         );
 
         http.exceptionHandling( exceptionHandlingConfigurer ->
-                exceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(403)));
+                exceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response
+                        .sendError(401)));
 
         http.logout(httpSecurityLogoutConfigurer ->
                 httpSecurityLogoutConfigurer
