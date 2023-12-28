@@ -32,6 +32,8 @@ public class ClientController {
     }
     @Autowired
     public PasswordEncoder passwordEncoder;
+    @Autowired
+    private AccountController accountController;
 
     @PostMapping("/clients")
     public ResponseEntity<String> createClient(
@@ -60,7 +62,12 @@ public class ClientController {
         Client client = new Client(firstName,lastName,email,passwordEncoder.encode(password), RoleType.CLIENT);
         clientsRepositories.save(client);
 
-        return new ResponseEntity<>("Client registered succesfully", HttpStatus.CREATED);
+        ResponseEntity<String> accountCreationResult = accountController.createAccountFirst(client);
+
+        if (accountCreationResult.getStatusCode() != HttpStatus.CREATED) {
+            return new ResponseEntity<>("Failed to create client account", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Client and account created", HttpStatus.CREATED);
     }
 
     @GetMapping("/clients/current")
@@ -68,12 +75,8 @@ public class ClientController {
 
         Client client = clientsRepositories.findByEmail(authentication.getName());
 
-        if(client != null ){
-            ClienDTO clientDTO = new ClienDTO(client);
-            return new ResponseEntity<>(clientDTO, HttpStatus.OK);
-        } else{
-            return new ResponseEntity<>("Client not found", HttpStatus.NOT_FOUND);
-        }
+        ClienDTO clientDTO = new ClienDTO(client);
+        return new ResponseEntity<>(clientDTO, HttpStatus.OK);
     }
 }
 

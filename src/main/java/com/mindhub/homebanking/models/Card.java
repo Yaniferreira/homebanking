@@ -10,7 +10,7 @@ public class Card {
 private Long id;
 private CardType type;
 private String number;
-private String securityCode;
+private int securityCode;
 private LocalDate creationDate;
 private LocalDate expirationDate;
 private String cardHolder;
@@ -21,7 +21,7 @@ private CardColor color;
     public Card() {
     }
 
-    public Card(CardType type, String number, String securityCode, LocalDate creationDate,
+    public Card(CardType type, String number, int securityCode, LocalDate creationDate,
                 LocalDate expirationDate, String cardHolder, CardColor color) {
         this.type = type;
         this.number = number;
@@ -52,11 +52,11 @@ private CardColor color;
         this.number = number;
     }
 
-    public String getSecurityCode() {
+    public int getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(String securityCode) {
+    public void setSecurityCode(int securityCode) {
         this.securityCode = securityCode;
     }
 

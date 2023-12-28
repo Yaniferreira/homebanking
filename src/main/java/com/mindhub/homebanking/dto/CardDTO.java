@@ -11,7 +11,7 @@ public class CardDTO {
     private Long id;
     private CardType type;
     private String number;
-    private String securityCode;
+    private int securityCode;
     private LocalDate creationDate;
     private LocalDate expirationDate;
     private CardColor color;
@@ -39,7 +39,7 @@ public class CardDTO {
         return number;
     }
 
-    public String getSecurityCode() {
+    public int getSecurityCode() {
         return securityCode;
     }
 

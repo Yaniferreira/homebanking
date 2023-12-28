@@ -18,10 +18,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/web/images/*","/web/index.html","/web/pagesCss/*","/web/pagesJs/*").permitAll()
-                .requestMatchers("/web/**","/api/clients/current","/api/accounts/*/transactions").hasAnyAuthority("CLIENT","ADMIN")
+                .requestMatchers("/web/images/*","/web/index.html","/web/pagesCss/*","/web/pagesJs/*","/web/pages/*").permitAll()
+                .requestMatchers("/web/**","/api/clients/current","/api/accounts/*/transactions")
+                .hasAnyAuthority("CLIENT","ADMIN")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/clients","/api/login").permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards",
+                        "api/clients/current/accounts/first").hasAuthority("CLIENT")
                 .anyRequest().denyAll());
 
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
@@ -34,7 +37,15 @@ public class SecurityConfig {
                 .loginProcessingUrl("/api/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .successHandler((request, response, authentication) -> clearAuthenticationAttributes(request))
+                .successHandler((request, response, authentication) -> {
+                    if(request.isUserInRole("ADMIN")){
+                        response.sendRedirect("/h2-console/");
+                        clearAuthenticationAttributes(request);
+                    } else if (request.isUserInRole("CLIENT")){
+                        response.sendRedirect("/web/accounts.html");
+                        clearAuthenticationAttributes(request);
+                    }
+                })
                 .failureHandler((request, response, exception) -> response.sendError(401))
                 .permitAll()
         );

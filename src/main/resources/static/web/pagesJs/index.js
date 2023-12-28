@@ -29,54 +29,54 @@ const app = Vue.createApp({
 		register() {
             axios.post("/api/clients?firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
                 .then(response => {
-                    console.log("registered" + this.email);
-                    window.location.href="/web/pages/accounts.html"  
+                    console.log("registered" + this.email)
+                    this.signin()
                 })
                 .catch(error => console.log(error))
         },
 		getfirstName(event){
             this.firstName = event.target.value
-			console.log(this.firstName);
+			console.log(this.firstName)
         },
 
         getlastName(event){
             this.lastName= event.target.value
-			console.log(this.lastName);
+			console.log(this.lastName)
         },
         getEmail(event){
             this.email = event.target.value
-			console.log(this.email);
+			console.log(this.email)
         },
 
         getPassword(event){
             this.password = event.target.value
-			console.log(this.password);
+			console.log(this.password)
         },
 
         togglePassword(){
-            const x = document.getElementById("passwordSignIn");
-            const y =document.getElementById("passwordSignup");
-            const eye = document.getElementById("togglePassword");
-            eye.classList.toggle("fa-eye-slash");
-            const currentInputType = x.getAttribute("type");
+            const x = document.getElementById("passwordSignIn")
+            const y =document.getElementById("passwordSignup")
+            const eye = document.getElementById("togglePassword")
+            eye.classList.toggle("fa-eye-slash")
+            const currentInputType = x.getAttribute("type")
             if (currentInputType === "password") {
-                x.setAttribute("type", "text");
-                y.setAttribute("type", "text");
+                x.setAttribute("type", "text")
+                y.setAttribute("type", "text")
             } else {
-                x.setAttribute("type", "password");
-                y.setAttribute("type", "password");
+                x.setAttribute("type", "password")
+                y.setAttribute("type", "password")
             }
         },
 
         togglePanel() {
-            this.isSignUpActive = !this.isSignUpActive;
+            this.isSignUpActive = !this.isSignUpActive
         },
         showModal() {
-            this.modalVisible = true;
+            this.modalVisible = true
         },
     
         closeModal() {
-            this.modalVisible = false;
+            this.modalVisible = false
         },
 
         signUpButton(){
@@ -89,4 +89,4 @@ const app = Vue.createApp({
 
 
     },
-}).mount('#app');
+}).mount('#app')

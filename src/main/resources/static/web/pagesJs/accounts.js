@@ -33,6 +33,11 @@ methods:{
                 }
             })
     },
+    newAccount(){
+        axios.post("/api/clients/current/accounts")
+        .then(response => console.log(response))
+          .catch(response => console.log(error))
+        },
     formatBudget(balance) {
         if (balance !== undefined && balance !== null) {
             return balance.toLocaleString("en-US", {
