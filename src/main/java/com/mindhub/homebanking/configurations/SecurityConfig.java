@@ -39,11 +39,15 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .successHandler((request, response, authentication) -> {
                     if(request.isUserInRole("ADMIN")){
+                        System.out.println("User is in role ADMIN");
                         response.sendRedirect("/h2-console/");
                         clearAuthenticationAttributes(request);
                     } else if (request.isUserInRole("CLIENT")){
+                        System.out.println("User is in role CLIENT");
                         response.sendRedirect("/web/accounts.html");
                         clearAuthenticationAttributes(request);
+                    } else {
+                        System.out.println("User has no recognized role");
                     }
                 })
                 .failureHandler((request, response, exception) -> response.sendError(401))
