@@ -70,4 +70,5 @@ public class Account {
     transaction.setAccount(this);
     this.transactions.add(transaction);
   }
+
 }

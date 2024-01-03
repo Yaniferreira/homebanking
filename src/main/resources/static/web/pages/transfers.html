@@ -1,55 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../pagesCss/style.css">
-    <title>Unity Bank</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+    <title>Transactions</title>
 </head>
 <body>
     <div id="app">
-        <header class="w-full ">
-            <div class="pb-2 flex flex-row items-center">
+        <header class="w-full pt-1">
+            <div class="pb-2 flex flex-row items-center ">
                 <img class="w-12 h-12 rounded-md" src="../images/favicon.png" alt="logo">
-                <h2 class="text-lg  text-center pl-3 ">UNITY BANK</h2>
+                <h2 class="text-lg text-center pl-3 ">UNITY BANK</h2>
             </div>
             <ul class="nav-list pt-2 ">
                 <li><a href="http://localhost:8080/web/pages/accounts.html" class=" text-lg">Accounts</a></li>
-                <li><a href="#" class="active text-lg">Cards</a></li>
+                <li><a href="http://localhost:8080/web/pages/cards.html" class="text-lg">Cards</a></li>
                 <li><a href="" class="text-lg">Loans</a></li>
-                <li><a href="http://localhost:8080/web/pages/transfers.html" class="text-lg">Transactions</a></li>
+                <li><a href="#" class="active text-lg">Transactions</a></li>
             </ul>
-            <button v-on:click="logout()" class="px-6 pt-2"><img class="w-10 h-10" src="../images/cerrar sesion.png"
-                    alt="cerrar sesion"></button>
+            <a href="" v-on:click="logout()" class="px-6 pt-2"><img class="w-10 h-10" src="../images/cerrar sesion.png"
+                    alt="cerrar sesion"></a>
         </header>
-        <main class=" min-h-screen flex justify-center items-center">
-            <div
-                class="flex justify-center items-center w-[450px] h-[350px] flex-col gap-4 bg-gradient-to-t from-orange-700 to-orange-500 p-4 rounded-lg">
-                <form class="flex gap-4 flex-col text-lg text-white">
+        <main class=" min-h-screen flex justify-center items-center mt-4">
+            <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px]">
+                <h1 class="text-2xl font-bold mb-4 text-center text-orange-600">Transactions</h1>
+                <form class="space-y-4">
                     <div>
-                        <label>Choose color</label>
-                        <select class="mt-1 block w-full text-black p-2 border  rounded-md " v-model="selectedColor">
-                            <option>GOLD</option>
-                            <option>SILVER</option>
-                            <option>TITANIUM</option>
+                        <label for="tipo" class="block text-sm font-medium ">Source Accounts</label>
+                        <select v-model="selectedAccount" class="mt-1 block w-full p-2 border  rounded-md ">
+                            <option >Select Account</option>
+                            <template v-if="data.length > 0" v-for="account in data">
+                                <option>{{account.number}}</option>
+                            </template>
                         </select>
                     </div>
                     <div>
-                        <label>Choose Type</label>
-                        <select class="mt-1 block w-full text-black p-2 border  rounded-md " v-model="selectedType">
-                            <option>CREDIT</option>
-                            <option>DEBIT</option>
-                        </select>
+                        <label class="block text-sm font-medium ">Transfer amount</label>
+                        <input type="number" v-model="amount"
+                            class="mt-1 block w-full p-2 border  rounded-md focus:outline-none focus:ring focus:ring-orange-300">
                     </div>
-                    <div class="flex justify-center">
-                        <button type="button" v-on:click="createCard()"
-                            class="bg-white hover:scale-110 text-orange-600 py-2 px-4 rounded">Create new
-                            Card</button>
+                    <div>
+                        <label class="flex gap-1">
+                          <input v-on:click="showModal2"name="transactionType" type="radio">Personal account
+                        </label>
+                        <label class="flex gap-1">
+                          <input v-on:click="showModal3" name="transactionType" type="radio">Others
+                        </label>
+                      </div>
+                    <div v-if="modalVisible3" >
+                        <label class="block text-sm font-medium ">Target account
+                            number</label>
+                        <input type="text" v-model="targetAccount"
+                            class="mt-1 block w-full p-2 mb-2 border -300 rounded-md focus:outline-none focus:ring focus:ring-orange-300">
+                            <button  class="w-1/2 hover:bg-orange-500 text-xs  font-bold 0 rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                             v-on:click="closeModal3()">Do you want to remove this option</button>
+                    </div>   
+                    <div v-if="modalVisible2">
+                        <label>Select target account:
+                        </label>
+                        <select v-model="selectedAccount2" class="mt-1 block w-full p-2 border  rounded-md ">
+                            <option >Select Account</option>
+                            <template v-if="data.length > 0" v-for="account in data">
+                                <option>{{account.number}}</option>
+                            </template>
+                        </select>
+                        <button  class="w-1/2 hover:bg-orange-500 text-xs  font-bold 0 rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                             v-on:click="closeModal2()">Do you want to remove this option</button>
+                      </div>
+                    <div>
+                        <label class="block text-sm font-medium">Description</label>
+                        <input type="text" v-model="description"
+                            class="mt-1 block w-full p-2 border  rounded-md focus:outline-none focus:ring focus:ring-orange-300">
+                    </div>
+                    <div>
+                        <button type="button" v-on:click="showModal"
+                            class="w-full p-2 bg-orange-600 text-white rounded-md focus:outline-none focus:ring focus:ring-orange-300">Send
+                            Cash</button>
+                    </div>
+                    <div v-if="modalVisible">
+                        <h2>Are you sure you want to perform this transaction?</h2>
+                        <div  class="flex flex-row gap-1">
+                        <button type="button" @click.prevent="createTransfer()"
+                            class=" w-1/2 p-2 bg-orange-600 text-white rounded-md focus:outline-none focus:ring
+                            focus:ring-orange-300">
+                            Yes</button>
+                        <button type="button" v-on:click="closeModal()"
+                            class="w-1/2 p-2 bg-orange-600 text-white rounded-md focus:outline-none focus:ring focus:ring-orange-300">
+                            No</button>
+                        </div>
                     </div>
                 </form>
-
             </div>
         </main>
         <footer class=" bg-black ">
@@ -129,10 +173,11 @@
             </div>
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="../pagesJs/tailwind.config.extension.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="../pagesJs/createCard.js"></script>
+    <script src="../pagesJs/transfer.js"></script>
 </body>
 
 </html>

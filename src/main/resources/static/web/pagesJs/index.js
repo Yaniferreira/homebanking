@@ -18,12 +18,6 @@ const app = Vue.createApp({
             .then(response => {
                 console.log(response)
                 window.location.href="/web/pages/accounts.html"
-				// this.role=response.role
-                // console.log(this.role);
-                // if (this.role === "ADMIN"){
-                //     window.location.href="/h2-console/login.jsp?jsessionid=d30c97fc7f9baa6335a14fccd45e016c"
-                // }
-                // else{window.location.href="/web/pages/accounts.html"}
             })
         },
 		register() {

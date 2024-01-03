@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @SpringBootApplication
@@ -49,20 +50,20 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 			accountRepository.save(accountYani1);
 			accountRepository.save(accountYani2);
 			System.out.println(clientTwo);
-			Transaction firstTransaction=new Transaction( -3000L,LocalDate.now(),"payment of expenses", TransactionType.DEBIT);
-			Transaction secondTransaction=new Transaction(4000L,LocalDate.now(),"payment per sale",TransactionType.CREDIT);
+			Transaction firstTransaction=new Transaction( -3000L,LocalDateTime.now(),"payment of expenses", TransactionType.DEBIT);
+			Transaction secondTransaction=new Transaction(4000L,LocalDateTime.now(),"payment per sale",TransactionType.CREDIT);
 			accountMel1.addTransaccion(firstTransaction);
 			accountMel1.addTransaccion(secondTransaction);
-			Transaction transaction1=new Transaction(12000L,LocalDate.now(),"salary payments",TransactionType.CREDIT);
-			Transaction transaction2=new Transaction(-4500L,LocalDate.now(),"electric energy payment",TransactionType.DEBIT);
+			Transaction transaction1=new Transaction(12000L, LocalDateTime.now(),"salary payments",TransactionType.CREDIT);
+			Transaction transaction2=new Transaction(-4500L,LocalDateTime.now(),"electric energy payment",TransactionType.DEBIT);
 			accountMel2.addTransaccion(transaction1);
 			accountMel2.addTransaccion(transaction2);
 			transactionRepository.save(firstTransaction);
 			transactionRepository.save(secondTransaction);
 			transactionRepository.save(transaction1);
 			transactionRepository.save(transaction2);
-			Transaction transactionOtherClient=new Transaction(-1000L,LocalDate.now(),"payment of expenses",TransactionType.DEBIT);
-			Transaction transactionOtherClient2=new Transaction(7000L,LocalDate.now(),"payment for shoe sales",TransactionType.CREDIT);
+			Transaction transactionOtherClient=new Transaction(-1000L,LocalDateTime.now(),"payment of expenses",TransactionType.DEBIT);
+			Transaction transactionOtherClient2=new Transaction(7000L,LocalDateTime.now(),"payment for shoe sales",TransactionType.CREDIT);
 			accountYani1.addTransaccion(transactionOtherClient);
 			accountYani2.addTransaccion(transactionOtherClient2);
 			transactionRepository.save(transactionOtherClient);
