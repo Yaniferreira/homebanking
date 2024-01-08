@@ -3,30 +3,31 @@ package com.mindhub.homebanking.models;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private double maxAmount;
     @ElementCollection
-    private Set<Integer> payments=new HashSet<>();
+    private List<Integer> payments;
     @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans=new HashSet<>();
 
     public Loan() {
     }
 
-    public Loan(String name, double maxAmount, Set<Integer> payments) {
+    public Loan(String name, double maxAmount, List<Integer> payments) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -46,11 +47,11 @@ public class Loan {
         this.maxAmount = maxAmount;
     }
 
-    public Set<Integer> getPayments() {
+    public List<Integer> getPayments() {
         return payments;
     }
 
-    public void setPayments(Set<Integer> payments) {
+    public void listPayments(List<Integer> payments) {
         this.payments = payments;
     }
 

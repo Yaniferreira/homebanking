@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class TransactionsDTO {
     private long id;
-    private Long amount;
+    private double amount;
     private LocalDateTime date;
     private String description;
     private TransactionType type;
@@ -23,7 +23,7 @@ public class TransactionsDTO {
         return id;
     }
 
-    public Long getAmount() {
+    public double getAmount() {
         return amount;
     }
 

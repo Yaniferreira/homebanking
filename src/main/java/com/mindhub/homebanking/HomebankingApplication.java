@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 
 @SpringBootApplication
@@ -68,9 +70,9 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 			accountYani2.addTransaccion(transactionOtherClient2);
 			transactionRepository.save(transactionOtherClient);
 			transactionRepository.save(transactionOtherClient2);
-			Loan mortgage=new Loan("Mortgage",500.000, Set.of(12,24,36,48,60));
-			Loan personal=new Loan("Personal",100.000,Set.of(6,12,24));
-			Loan auto=new Loan("Automotriz",300.000,Set.of(6,12,24,36));
+			Loan mortgage=new Loan("Mortgage",500.000, Arrays.asList(12,24,36,48,60));
+			Loan personal=new Loan("Personal",100.000,Arrays.asList(6,12,24));
+			Loan auto=new Loan("Automotriz",300.000,Arrays.asList(6,12,24,36));
 			loanRepository.save(mortgage);
 			loanRepository.save(personal);
 			loanRepository.save(auto);

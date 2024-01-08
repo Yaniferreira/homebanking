@@ -8,32 +8,33 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Long amount;
+    private double amount;
     private LocalDateTime date;
     private String description;
     private TransactionType type;
     @ManyToOne
     private Account account;
 
-    public Transaction() {
-    }
 
-    public Transaction(Long amount, LocalDateTime date, String description, TransactionType type) {
+    public Transaction(double amount, LocalDateTime date, String description, TransactionType type) {
         this.amount = amount;
         this.date = date;
         this.description = description;
         this.type = type;
     }
 
+    public Transaction(Account account, LocalDateTime now, double amount, TransactionType transactionType, String s) {
+    }
+
     public long getId() {
         return id;
     }
 
-    public Long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
