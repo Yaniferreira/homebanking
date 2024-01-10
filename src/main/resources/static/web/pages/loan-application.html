@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../pagesCss/style.css">
     <title>Unity Bank</title>
@@ -17,14 +18,63 @@
         <ul class="nav-list pt-2 ">
             <li><a href="http://localhost:8080/web/pages/accounts.html" class=" text-lg">Accounts</a></li>
             <li><a href="http://localhost:8080/web/pages/cards.html" class="text-lg">Cards</a></li>
-            <li><a href="" class="active text-lg">Loans</a></li>
+            <li><a href="#" class="active text-lg">Loans</a></li>
             <li><a href="http://localhost:8080/web/pages/transfers.html" class=" text-lg">Transactions</a></li>
         </ul>
         <a href="" v-on:click="logout()" class="px-6 pt-2"><img class="w-10 h-10" src="../images/cerrar sesion.png"
                 alt="cerrar sesion"></a>
     </header>
-    <main>
-
+    <main class="h-screen justify-center items-center">
+      <div class="w-full h-full flex items-center justify-center">
+        <section class="text-black w-[400px] p-2  flex flex-col justify-around gap-8 items-center rounded-2xl">
+          <div class="h-full">
+            <div class="flex flex-col md:flex-row-reverse h-full text-center justify-center items-center gap-4">
+              <form @submit.prevent="createLoan()" class="flex flex-col gap-4 z-50">
+                <div>
+                  <label class="font-bold"> Choose Loan:
+                    <select required class="text-center" v-model="selectedLoan" @change="searchPayments()">
+                      <option disabled value="0">Select Loan</option>
+                      <template v-if="loans.length != 0" v-for="loan of loans">
+                        <option :value="loan.id">{{loan.name}}</option>
+                      </template>
+                    </select>
+                  </label>
+                </div>
+                <div>
+                  <label class="font-bold">Choose Account:
+                    <select required class="text-center" v-model="selectedAccount">
+                      <option disabled value="0">Select Account</option>
+                      <template v-if="accounts.length != 0" v-for="account of accounts">
+                        <option>{{account.number}}</option>
+                      </template>
+                    </select>
+                  </label>
+                </div>
+                <div class="flex flex-col">
+                  <label class="font-bold"> Enter Amount:
+                    <input class="w-full text-center" required  type="text" v-model="amount">
+                  </label>
+                  <label v-show="selectedLoan != 0">
+                    <small>Max amount:{{formatBudget(loanAmount)}}</small>
+                  </label>
+                </div>
+                <div v-show="selectedLoan != 0">
+                  <label class="font-bold">Choose payments:
+                    <select required class="text-center" v-model="selectedPayments">
+                      <option disabled value="0">Select payments</option>
+                      <template v-if="payments.length != 0" v-for="payment of payments">
+                        <option>{{payment}}</option>
+                      </template>
+                    </select>
+                  </label>
+                </div>
+                <button type="submit" class="bg-orange-400 py-2 rounded-lg font-bold text-xl">
+                  Request Loan</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
     <footer class=" bg-black ">
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

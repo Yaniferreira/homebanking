@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/clients","/api/login").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards",
-                        "api/clients/current/accounts/first","/api/transactions/transfer").hasAuthority("CLIENT")
+                        "api/clients/current/accounts/first","/api/transactions/transfer","/api/loans").hasAuthority("CLIENT")
                 .anyRequest().denyAll());
 
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());

@@ -17,19 +17,20 @@ import java.util.Set;
 
 @SpringBootApplication
 public class HomebankingApplication {
-public static void main(String[] args) {
+	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
-	@Autowired
-	public PasswordEncoder passwordEncoder;
-	@Bean
-public CommandLineRunner initData(ClientsRepositories clientsRepositories,
-								  AccountRepository accountRepository,
-								  TransactionRepository transactionRepository,
-								  LoanRepository loanRepository,
-								  ClientLoanRepository clientLoanRepository,
-								  CardRepository cardRepository){
-		return args -> {
+
+	//@Autowired
+	//public PasswordEncoder passwordEncoder;
+//@Bean
+	/*public CommandLineRunner initData(ClientsRepositories clientsRepositories,
+									  AccountRepository accountRepository,
+									  TransactionRepository transactionRepository,
+									  LoanRepository loanRepository,
+									  ClientLoanRepository clientLoanRepository,
+									  CardRepository cardRepository) {
+		return args ->{
 			Client clientAdmin=new Client("Pedro","Rodriguez","pedro@mindhub.com", passwordEncoder.encode("pedro"),RoleType.ADMIN);
 			clientsRepositories.save((clientAdmin));
 			Client clientOne=new Client("Melba","Morel","melba@mindhub.com",
@@ -106,5 +107,5 @@ public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 			cardRepository.save(cardYani1);
 		};
 
-}
+}*/
 }

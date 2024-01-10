@@ -15,6 +15,8 @@ public class Transaction {
     @ManyToOne
     private Account account;
 
+    public Transaction() {
+    }
 
     public Transaction(double amount, LocalDateTime date, String description, TransactionType type) {
         this.amount = amount;
