@@ -1,7 +1,7 @@
 package com.mindhub.homebanking.Services.impl;
 
 import com.mindhub.homebanking.Services.ClientService;
-import com.mindhub.homebanking.dto.ClienDTO;
+import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.ClientsRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ public class ClientServiceImpl implements ClientService {
     private ClientsRepositories clientsRepositories;
 
     @Override
-    public List<ClienDTO> getAllClientsDTO() {
-        return getAllClients().stream().map(ClienDTO::new).collect(Collectors.toList());
+    public List<ClientDTO> getAllClientsDTO() {
+        return getAllClients().stream().map(ClientDTO::new).collect(Collectors.toList());
     }
     @Override
     public Client getAuthClient(String email) {
@@ -25,13 +25,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClienDTO getAuthClientDTO(String email) {
-        return new ClienDTO(getAuthClient(email));
+    public ClientDTO getAuthClientDTO(String email) {
+        return new ClientDTO(getAuthClient(email));
     }
 
     @Override
-    public ClienDTO getClientById(Long id) {
-        return clientsRepositories.findById(id).map(ClienDTO::new).orElse(null);
+    public ClientDTO getClientById(Long id) {
+        return clientsRepositories.findById(id).map(ClientDTO::new).orElse(null);
     }
 
     @Override

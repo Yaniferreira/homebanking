@@ -21,10 +21,10 @@ public class HomebankingApplication {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 
-	//@Autowired
-	//public PasswordEncoder passwordEncoder;
-//@Bean
-	/*public CommandLineRunner initData(ClientsRepositories clientsRepositories,
+	/*@Autowired
+	public PasswordEncoder passwordEncoder;
+@Bean
+	public CommandLineRunner initData(ClientsRepositories clientsRepositories,
 									  AccountRepository accountRepository,
 									  TransactionRepository transactionRepository,
 									  LoanRepository loanRepository,
@@ -71,16 +71,16 @@ public class HomebankingApplication {
 			accountYani2.addTransaccion(transactionOtherClient2);
 			transactionRepository.save(transactionOtherClient);
 			transactionRepository.save(transactionOtherClient2);
-			Loan mortgage=new Loan("Mortgage",500.000, Arrays.asList(12,24,36,48,60));
-			Loan personal=new Loan("Personal",100.000,Arrays.asList(6,12,24));
-			Loan auto=new Loan("Automotriz",300.000,Arrays.asList(6,12,24,36));
+			Loan mortgage=new Loan("Mortgage",500000, Arrays.asList(12,24,36,48,60));
+			Loan personal=new Loan("Personal",100000,Arrays.asList(6,12,24));
+			Loan auto=new Loan("Automotriz",300000,Arrays.asList(6,12,24,36));
 			loanRepository.save(mortgage);
 			loanRepository.save(personal);
 			loanRepository.save(auto);
-			ClientLoan loanMelmortgage=new ClientLoan(400.000,60);
-			ClientLoan loanMelPersonal=new ClientLoan(50.000,12);
-			ClientLoan loanYaniPersonal=new ClientLoan(100.000,24);
-			ClientLoan loanYaniAuto=new ClientLoan(200.000,36);
+			ClientLoan loanMelmortgage=new ClientLoan(400000,60);
+			ClientLoan loanMelPersonal=new ClientLoan(50000,12);
+			ClientLoan loanYaniPersonal=new ClientLoan(100000,24);
+			ClientLoan loanYaniAuto=new ClientLoan(200000,36);
 			clientOne.addClientLoan(loanMelmortgage);
 			clientOne.addClientLoan(loanMelPersonal);
 			clientTwo.addClientLoan(loanYaniAuto);

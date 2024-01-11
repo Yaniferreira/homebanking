@@ -1,20 +1,19 @@
 package com.mindhub.homebanking.dto;
 
-import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.RoleType;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ClienDTO {
+public class ClientDTO {
     private long id;
     private String firstName,lastName,email;
     private  RoleType role;
     private List<AccountDTO>accounts;
     private List<ClientLoanDTO>loans;
     private List<CardDTO>cards;
-    public ClienDTO(Client client){
+    public ClientDTO(Client client){
         id= client.getId();
         firstName=client.getFirstName();
         lastName= client.getLastName();

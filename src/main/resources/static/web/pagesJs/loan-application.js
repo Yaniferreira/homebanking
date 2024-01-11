@@ -3,20 +3,12 @@ const {createApp} = Vue
 const options = {
   data(){
     return {
-      client: [],
-      accounts:[],
-      loans:[],
-      payments:[],
-      loanAmount:"",
-      isWideScreen:false,
-      successCard:false,
-      failureCard:false,
-      errormsg:"",
-      modalVisibleAlert:false,
-      selectedLoan:0,
-      selectedAccount:0,
-      selectedPayments:0,
-      amount:0,
+      data:[],
+      selectedLoan:"1",
+      accountDest: "",
+      payments:"1",
+      paymentsFilter:"1",
+      amount:"",
     } 
   }, 
   created(){
@@ -25,19 +17,22 @@ const options = {
   }, 
 
   methods:{
-    loadData(){
-      axios.get("/api/clients/current")
-      .then (data => {
-        this.client = data.data
-        this.accounts = data.data.accounts
-        console.log(this.client)
-        console.log( this.accounts)
-      })
-      .catch (error => console.log ("Error: ",error))      
-    },
+    loadData() {
+      axios.get("/api/loans")
+          .then(response => {
+              this.data = response.data
+              this.payments = response.data
+              console.log("hola", this.payments)
+
+              console.log(this.data)
+          })
+          .catch(error => {
+              console.log(error)
+          })
+  },
     loadLoans(){
     axios.get("/api/loans")
-    .then(response =>{
+    .then(response=>{
       this.loans = response.data
       console.log(this.loans)})
     .catch(error => console.log(error))
@@ -51,11 +46,11 @@ const options = {
             "payments": this.selectedPayments
           }
       axios.post("/api/loans",body)
-      .then(response=>{
-      })
+      .then(response =>{this.data = response.data
+        console.log(this.data)})
       .catch(error => console.log(error))
       },
-      searchPayments(){
+      Payments(){
         const pays = this.loans.find(loan => loan.id == this.selectedLoan)
         this.loanAmount = pays.amount
         this.payments = pays.payments

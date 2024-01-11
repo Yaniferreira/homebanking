@@ -3,6 +3,7 @@ package com.mindhub.homebanking.Services.impl;
 import com.mindhub.homebanking.Services.AccountService;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dto.AccountDTO;
+import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.dto.TransactionsDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.repositories.AccountRepository;
@@ -26,6 +27,10 @@ public class AccountServiceImpl implements AccountService {
                 .stream()
                 .map(account -> new AccountDTO(account))
                 .collect(Collectors.toList());
+    }
+    @Override
+    public AccountDTO getAccountById(Long id) {
+        return accountRepository.findById(id).map(AccountDTO::new).orElse(null);
     }
 
     @Override

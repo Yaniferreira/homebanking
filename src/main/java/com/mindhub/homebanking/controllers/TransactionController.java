@@ -1,5 +1,9 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.Services.AccountService;
+import com.mindhub.homebanking.Services.ClientService;
+import com.mindhub.homebanking.Services.TransactionService;
+import com.mindhub.homebanking.dto.NewTransactionDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
@@ -11,10 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -23,34 +24,30 @@ import java.time.LocalDateTime;
 public class TransactionController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
     @Autowired
-    private ClientsRepositories clientsRepositories;
+    private ClientService clientService;
 
     @PostMapping("/transfer")
     @Transactional
     public ResponseEntity<String> transferMoney(
-            @RequestParam Long amount,
-            @RequestParam String descriptions,
-            @RequestParam String sourceAccountNumber,
-            @RequestParam String targetAccountNumber,
-            Authentication authentication){
+            @RequestBody NewTransactionDTO newTransactionDTO){
 
-        Account sourceAccount = accountRepository.findByNumber(sourceAccountNumber);
-        Account targetAccount = accountRepository.findByNumber(targetAccountNumber);
+        Account sourceAccount = accountService.findByNumber(newTransactionDTO.getSourceAccountNumber());
+        Account targetAccount = accountService.findByNumber(newTransactionDTO.getTargetAccountNumber());
 
-        if(amount == 0 || amount <= 0){
+        if(newTransactionDTO.getAmount() == 0 || newTransactionDTO.getAmount() <= 0){
             return new ResponseEntity<>("Amount cannot be blank or cero", HttpStatus.FORBIDDEN);
         }
 
-        if(descriptions.isBlank()){
+        if(newTransactionDTO.getDescriptions().isBlank()){
             return new ResponseEntity<>("Description cannot be blank",HttpStatus.FORBIDDEN);
         }
 
 
-        if(sourceAccountNumber.isBlank() || targetAccountNumber.isBlank()){
+        if(newTransactionDTO.getSourceAccountNumber().isBlank() || newTransactionDTO.getTargetAccountNumber().isBlank()){
             return new ResponseEntity<>("Source Account or Target Account cannot be blank.",HttpStatus.FORBIDDEN);
         }
 
@@ -62,11 +59,11 @@ public class TransactionController {
             return new ResponseEntity<>("Target account does not exists.", HttpStatus.FORBIDDEN);
         }
 
-        if(!sourceAccount.getClient().getEmail().equals(authentication.getName())){
+        if(!sourceAccount.getClient().getEmail().equals(newTransactionDTO.getAuthentication().getName())){
             return new ResponseEntity<>("Source account does not belong to an authenticated client.", HttpStatus.FORBIDDEN);
         }
 
-        if(sourceAccount.getBalance() < amount){
+        if(sourceAccount.getBalance() < newTransactionDTO.getAmount()){
             return new ResponseEntity<>("Insufficent funds in the account",HttpStatus.BAD_REQUEST);
         }
 
@@ -74,17 +71,16 @@ public class TransactionController {
             return new ResponseEntity<>("Source and Target account cannot be the same", HttpStatus.FORBIDDEN);
         }
 
-        Transaction debitTransaction = new Transaction(-amount,LocalDateTime.now(),descriptions, TransactionType.DEBIT);
-        Transaction creditTransaction = new Transaction(amount,LocalDateTime.now(),descriptions, TransactionType.CREDIT);
+        Transaction debitTransaction = new Transaction(newTransactionDTO.getAmount(),LocalDateTime.now(),newTransactionDTO.getDescriptions(), TransactionType.DEBIT);
+        Transaction creditTransaction = new Transaction(newTransactionDTO.getAmount(),LocalDateTime.now(),newTransactionDTO.getDescriptions(), TransactionType.CREDIT);
 
-        transactionRepository.save(debitTransaction);
-        transactionRepository.save(creditTransaction);
+        transactionService.saveTransaction(debitTransaction);
+        transactionService.saveTransaction(creditTransaction);
 
-        sourceAccount.setBalance(sourceAccount.getBalance()- amount);
-        targetAccount.setBalance(targetAccount.getBalance()+ amount);
-
-        accountRepository.save(sourceAccount);
-        accountRepository.save(targetAccount);
+        sourceAccount.setBalance(sourceAccount.getBalance() - newTransactionDTO.getAmount());
+        targetAccount.setBalance(targetAccount.getBalance() + newTransactionDTO.getAmount());
+        accountService.saveAccount(sourceAccount);
+        accountService.saveAccount(targetAccount);
 
         return new ResponseEntity<>("Transfer succesful",HttpStatus.OK);
     }
