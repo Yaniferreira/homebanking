@@ -7,9 +7,6 @@ import com.mindhub.homebanking.dto.NewTransactionDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientsRepositories;
-import com.mindhub.homebanking.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +30,7 @@ public class TransactionController {
     @PostMapping("/transfer")
     @Transactional
     public ResponseEntity<String> transferMoney(
-            @RequestBody NewTransactionDTO newTransactionDTO){
+            @RequestBody NewTransactionDTO newTransactionDTO,Authentication authentication){
 
         Account sourceAccount = accountService.findByNumber(newTransactionDTO.getSourceAccountNumber());
         Account targetAccount = accountService.findByNumber(newTransactionDTO.getTargetAccountNumber());
@@ -59,7 +56,7 @@ public class TransactionController {
             return new ResponseEntity<>("Target account does not exists.", HttpStatus.FORBIDDEN);
         }
 
-        if(!sourceAccount.getClient().getEmail().equals(newTransactionDTO.getAuthentication().getName())){
+        if(!sourceAccount.getClient().getEmail().equals(authentication.getName())){
             return new ResponseEntity<>("Source account does not belong to an authenticated client.", HttpStatus.FORBIDDEN);
         }
 

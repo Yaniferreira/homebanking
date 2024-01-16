@@ -3,8 +3,8 @@ const {createApp} = Vue
 const options = {
   data(){
     return {
-      data:[],
-      selectedLoan:"1",
+      loans:[],
+      selectLoan:"1",
       accountDest: "",
       payments:"1",
       paymentsFilter:"1",
@@ -12,61 +12,41 @@ const options = {
     } 
   }, 
   created(){
-    this.loadData()
     this.loadLoans()
   }, 
 
   methods:{
-    loadData() {
-      axios.get("/api/loans")
-          .then(response => {
-              this.data = response.data
-              this.payments = response.data
-              console.log("hola", this.payments)
-
-              console.log(this.data)
-          })
-          .catch(error => {
-              console.log(error)
-          })
-  },
-    loadLoans(){
+loadLoans(){
     axios.get("/api/loans")
     .then(response=>{
       this.loans = response.data
       console.log(this.loans)})
     .catch(error => console.log(error))
     },
-      createLoan(){
+      createLoans(){
         const body =
           {
-            "loanId":this.selectedLoan,
-            "accountNumber":this.selectedAccount,
+            "loanId":this.selectLoan,
+            "accountNumber":this.accountDest,
             "amount":this.amount,
-            "payments": this.selectedPayments
+            "payments": this.payments
           }
       axios.post("/api/loans",body)
-      .then(response =>{this.data = response.data
-        console.log(this.data)})
+      .then(response => {
+        console.log(response.loan)
+    })
       .catch(error => console.log(error))
       },
-      Payments(){
-        const pays = this.loans.find(loan => loan.id == this.selectedLoan)
-        this.loanAmount = pays.amount
-        this.payments = pays.payments
-      },
-      formatBudget(balance){
-        if(balance !== undefined && balance !== null){
-          const sign = balance < 0 ? "-":""
-          const formattedBalance = Math.abs(balance).toLocaleString("en-US",{
-            style: "currency",
-            currency: "USD",
-            currencyDisplay:"narrowSymbol",
-            minimumFractionDigits: 2,
-          })
-          return `USD ${sign}${formattedBalance}`
+      Payments() {
+        const selectedLoanId = parseInt(this.selectLoan, 10);
+        const paymentsFilter = this.loans.filter(loan => selectedLoanId === loan.id)[0];
+    
+        if (paymentsFilter) {
+            this.paymentsFilter = paymentsFilter.payments;
+        } else {
+            this.paymentsFilter = [];
         }
-      },
+    },
       logout(){
         axios.post("/api/logout")
             .then(response => {

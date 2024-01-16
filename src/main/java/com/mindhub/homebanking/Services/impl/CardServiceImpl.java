@@ -28,55 +28,39 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<CardDTO> getClientCards() {
-        return cardRepository.findAll() // busco todos los clientes en mi repositorio
-                .stream() //convierto la lista en un Stream para poder usar operaciones intermedias (map, filter, sort, etc)
-                //o terminales (count, collect, forEach, etc)
-                .map(CardDTO::new) // transformo cada client en un objeto DTO
-                .collect(Collectors.toList()); // recopilo tod;
+        return cardRepository.findAll()
+                .stream()
+                .map(CardDTO::new)
+                .collect(Collectors.toList());
     }
-
     @Override
     public ResponseEntity<String> createCard(CardColor color, CardType type, Authentication authentication) {
         Client client = clientService.getAuthClient(authentication.getName());
-        // obtengo los cards de los clientes, los transformo a stream, los filtro por color y tipo y los contabilizo.
         long colorTypeCount = client.getCards().stream()
                 .filter(card -> card.getColor() == color && card.getType() == type)
                 .count();
-
-        //  obtengo los cards de los clientes, los transformo a stream, los filtro por color y los contabilizo.
         long colorCount = client.getCards().stream()
                 .filter(card -> card.getColor() == color)
                 .count();
-
-        //  obtengo los cards de los clientes, los transformo a stream, los filtro por tipo y los contabilizo.
         long typeCount = client.getCards().stream()
                 .filter(card -> card.getType() == type)
                 .count();
-
-        //  Verifico si ya se tiene un tipo del card seleccionado y si ya existen 3, devuelvo un error.
         if (typeCount >= 3) {
             return new ResponseEntity<>("You already have 3 cards of type " + type, HttpStatus.FORBIDDEN);
         }
-        // Verifico si ya se tiene un color y un tipo del card seleccionado y si ya existe 1, devuelvo un error.
         if (colorTypeCount >= 1) {
             return new ResponseEntity<>("You already have a card of color " + color + " and type " + type, HttpStatus.FORBIDDEN);
         }
-        // Verifico si ya se tiene un color del card seleccionado y si ya existen 2, devuelvo un error.
         if (colorCount >= 2) {
             return new ResponseEntity<>("You already have a card of color " + color, HttpStatus.FORBIDDEN);
         }
 
-        //    Verifico si ya se tiene un maximo de 6 cards y si se cumple, devuelvo un error.
         if (client.getCards().size() >= 6) {
             return new ResponseEntity<>("You have reached the maximum limit of 6 cards", HttpStatus.FORBIDDEN);
         }
-        // generador automatico, random, de CVV
         int securityCode = (int) (Math.random() * 900 + 100);
-
         String number = generateRandomCardNumber();
-
         String cardholder = client.getFirstName() + " " + client.getLastName();
-
         LocalDate creationDate = LocalDate.now();
         LocalDate expirationDate = creationDate.plusYears(5);
         Card card = new Card( type,number,securityCode, creationDate,expirationDate,cardholder,color);

@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 public class NewTransactionDTO {
     private Long amount;
     private String descriptions,sourceAccountNumber,targetAccountNumber;
-    private Authentication authentication;
+
 
     public Long getAmount() {
         return amount;
@@ -23,7 +23,5 @@ public class NewTransactionDTO {
         return targetAccountNumber;
     }
 
-    public Authentication getAuthentication() {
-        return authentication;
-    }
+
 }

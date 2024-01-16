@@ -12,54 +12,56 @@
 
 <body class=" flex flex-col bg-linen">
     <div id="app">
-        <header class="w-full ">
-            <div class="pb-2 flex flex-row items-center">
-                <img class="w-12 h-12 rounded-md" src="../images/favicon.png" alt="logo">
-                <h2 class="text-lg  text-center pl-3 ">UNITY BANK</h2>
+        <header class="w-full xl:h-12 flex-col md:flex-row">
+            <div class="pb-2 w-1/4 flex flex-row items-center ">
+                <img class="w-8 h-8 rounded-md" src="../images/favicon.png" alt="logo">
+                <h2 class="text-sm text-center  ">UNITY BANK</h2>
             </div>
-            <ul class="nav-list pt-2 ">
-                <li><a href="http://localhost:8080/web/pages/accounts.html" class=" text-lg">Accounts</a></li>
-                <li><a href="#" class="active text-lg">Cards</a></li>
-                <li><a href="http://localhost:8080/web/pages/loan-application.html" class="text-lg">Loans</a></li>
-                <li><a href="http://localhost:8080/web/pages/transfers.html" class="text-lg">Transactions</a></li>
+            <ul class="nav-list  pt-2 xl:gap-10 xl:w-full 2xl:w-full 2xl:gap-12 2xl:text-xl">
+                <li><a href="http://localhost:8080/web/pages/accounts.html" class=" lg:text-lg">Accounts</a></li>
+                <li><a href="http://localhost:8080/web/pages/cards.html" class="active lg:text-lg">Cards</a></li>
+                <li><a href="http://localhost:8080/web/pages/loan-application.html" class=" lg:text-lg">Loans</a></li>
+                <li><a href="http://localhost:8080/web/pages/transfers.html" class=" lg:text-lg">Transactions</a></li>
+                <li v-on:click="logout()"><img class="w-6 h-6  md:w-10 md:h-10" src="../images/cerrar sesion.png"
+                    alt="cerrar sesion"></li>
             </ul>
-            <button v-on:click="logout()" class="px-6 pt-2"><img class="w-10 h-10" src="../images/cerrar sesion.png"
-                    alt="cerrar sesion"></button>
         </header>
-        <main class="w-full min-h-screen pt-24">
-            < <div class="flex justify-center items-center mb-2">
-                <button class=" w-[150px] bg-orange-600 hover:scale-110 text-white py-2 px-4 rounded-2xl">
-                    <a href="./cardCreate.html">create new card</a>
+        <main class="w-full h-full pt-24 pb-36">
+            <div class="flex justify-start items-center mb-2">
+                <button class="w-[150px] text-sm md:w-[200px] md:text-xl bg-orange-600 hover:scale-110 text-white py-2 px-4 rounded-2xl">
+                    <a href="./cardCreate.html">Create new card</a>
                 </button>
             </div>
             <div>
-                <h1 v-if="cards.length > 0" class="text-3xl text-center font-bold pb-5">Your Cards</h1>
-                <div v-if="cards.length > 0" class="flex flex-wrap  justify-evenly  h-[400px] items-">
+                <h1 v-if="cards.length > 0" class=" text-lg lg:text-3xl text-center font-bold pb-5">Your Cards</h1>
+                <div v-if="cards.length > 0" class="flex flex-wrap  justify-evenly  h-[400px] ">
                     <template v-if="cards.length > 0" v-for="card in cards">
                         <template v-if="card.type == 'DEBIT'">
                             <div>
                                 <h2 class="pb-2 font-semibold text-lg">Debit:</h2>
-                                <div class="w-96 h-56 m-auto bg-red-100 rounded-xl text-white shadow-2xl transition-transform 
+                                <div class="w-60 h-38 lg:w-96 lg:h-56 m-auto bg-red-100 rounded-xl text-white shadow-2xl transition-transform 
                                                     transform hover:scale-110">
-                                    <img class=" object-cover  rounded-xl" src="../images/card-gold.png">
-                                    <div class="w-full px-6 absolute top-7">
+                                    <img v-if="card.color == 'GOLD'" class=" object-cover  rounded-xl" src="../images/card-gold.png">
+                                    <img v-if="card.color == 'TITANIUM'" class=" object-cover  rounded-xl" src="../images/cardTitanium.png">
+                                    <img v-if="card.color == 'SILVER'" class=" object-cover  rounded-xl" src="../images/cardSilver.png">
+                                    <div class="w-full text-xs lg:text-lg px-4 lg:px-6 absolute top-7">
                                         <div class="flex justify-between">
                                             <p class="font-bold tracking-widest">
                                                 {{card.color}}
                                             </p>
                                         </div>
-                                        <div class="pt-14">
+                                        <div class="pt-6 lg:pt-14">
                                             <p class="font-medium tracking-more-wider">
                                                 {{card.number}}
                                             </p>
                                         </div>
                                         <div class="flex flex-col items-start">
-                                            <div class="flex flex-row gap-10 ">
+                                            <div class="flex flex-row gap-5 lg:gap-10 ">
                                                 <div>
                                                     <p class="font-light text-xs">
                                                         Valid
                                                         </h1>
-                                                    <p class="font-medium tracking-wider text-sm">
+                                                    <p class="font-medium tracking-wider text-xs lg:text-sm">
                                                         {{card.creationDate}}
                                                     </p>
                                                 </div>
@@ -67,12 +69,12 @@
                                                     <p class="font-light text-xs">
                                                         Expiry
                                                         </h1>
-                                                    <p class="font-medium tracking-wider text-sm">
+                                                    <p class="font-medium tracking-wider text-xs lg:text-sm">
                                                         {{card.expirationDate}}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="flex justify-between items-start pr-5 pt-7 font-bold w-[350px] ">
+                                            <div class="flex justify-between pt-2 items-start lg:pr-5 lg:pt-6 font-bold w-[210px] lg:w-[350px] ">
                                                 <h3>{{card.cardHolder}}</h3>
                                                 <h3>{{card.type}}</h3>
                                             </div>
@@ -85,29 +87,30 @@
                             <div>
                                 <h2 class="pb-2 font-semibold text-lg">Credit:</h2>
                                 <div
-                                    class="w-96 h-56 m-auto bg-red-100 rounded-xl  text-white shadow-2xl transition-transform transform hover:scale-110">
-                                    <img class=" object-cover  rounded-xl" src="../images/cardBlack.png">
-    
-                                    <div class="w-full px-8 absolute top-8">
+                                    class="w-60 h-38 lg:w-96 lg:h-56 m-auto bg-red-100 rounded-xl  text-white shadow-2xl transition-transform transform hover:scale-110">
+                                    <img v-if="card.color == 'GOLD'" class=" object-cover  rounded-xl" src="../images/card-gold.png">
+                                    <img v-if="card.color == 'TITANIUM'" class=" object-cover  rounded-xl" src="../images/cardTitanium.png">
+                                    <img v-if="card.color == 'SILVER'" class=" object-cover  rounded-xl" src="../images/cardSilver.png">
+                                    <div class="w-full px-4 lg:px-8  text-xs lg:text-lg absolute top-7">
                                         <div class="flex justify-between">
                                             <div class="">
-                                                <p class="font-bold tracking-widest">
+                                                <p class="font-bold tracking-widest ">
                                                     {{card.color}}
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="pt-14">
+                                        <div class="pt-6 lg:pt-14">
                                             <p class="font-medium tracking-more-wider">
                                                 {{card.number}}
                                             </p>
                                         </div>
                                         <div class="flex flex-col items-start">
-                                            <div class="flex flex-row gap-10">
+                                            <div class="flex flex-row gap-5 lg:gap-10">
                                                 <div class="">
                                                     <p class="font-light text-xs">
                                                         Valid
                                                         </h1>
-                                                    <p class="font-medium tracking-wider text-sm">
+                                                    <p class="font-medium tracking-wider text-xs lg:text-sm">
                                                         {{card.creationDate}}
                                                     </p>
                                                 </div>
@@ -115,12 +118,12 @@
                                                     <p class="font-light text-xs ">
                                                         Expiry
                                                         </h1>
-                                                    <p class="font-medium tracking-wider text-sm">
+                                                    <p class="font-medium tracking-wider text-xs lg:text-sm">
                                                         {{card.expirationDate}}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="flex justify-between items-start pr-5 pt-6 font-bold w-[350px] ">
+                                            <div class="flex justify-between pt-2 items-start lg:pr-5 lg:pt-6 font-bold w-[210px] lg:w-[350px] ">
                                                 <h3>{{card.cardHolder}}</h3>
                                                 <h3>{{card.type}}</h3>
                                             </div>
@@ -137,7 +140,7 @@
                 </div>
             </div>
         </main>
-        <footer class="bg-white dark:bg-black">
+        <footer class="bg-white dark:bg-black ">
             <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div class="md:flex md:justify-between">
                   <div class="flex items-center mb-6 md:mb-0">

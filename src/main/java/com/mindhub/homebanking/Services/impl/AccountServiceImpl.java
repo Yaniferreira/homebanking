@@ -32,7 +32,6 @@ public class AccountServiceImpl implements AccountService {
     public AccountDTO getAccountById(Long id) {
         return accountRepository.findById(id).map(AccountDTO::new).orElse(null);
     }
-
     @Override
     public List<TransactionsDTO> getTransactionsByAccountId(Long id) {
         return accountRepository.findById(id)
@@ -41,7 +40,6 @@ public class AccountServiceImpl implements AccountService {
                         .collect(Collectors.toList()))
                 .orElse(Collections.emptyList());
     }
-
     @Override
     public boolean existsByNumber(String number) {
         return accountRepository.existsByNumber(number);

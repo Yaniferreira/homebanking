@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 public class NewCardDTO {
     private CardColor color;
     private CardType type;
-    private Authentication authentication;
 
     public CardColor getColor() {
         return color;
@@ -17,7 +16,4 @@ public class NewCardDTO {
         return type;
     }
 
-    public Authentication getAuthentication() {
-        return authentication;
-    }
 }

@@ -4,15 +4,10 @@ import com.mindhub.homebanking.Services.CardService;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dto.NewCardDTO;
 import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.repositories.CardRepository;
-import com.mindhub.homebanking.repositories.ClientsRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api")
@@ -24,10 +19,9 @@ public class CardController {
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<String> createCard(
-            @RequestBody NewCardDTO newCardDTO) {
+            @RequestBody NewCardDTO newCardDTO,Authentication authentication) {
         CardColor color = newCardDTO.getColor();
         CardType type = newCardDTO.getType();
-        Authentication authentication = newCardDTO.getAuthentication();
 
         ResponseEntity<String> response = cardService.createCard(color, type, authentication);
         return response;

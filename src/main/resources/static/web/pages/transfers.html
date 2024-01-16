@@ -11,19 +11,19 @@
 </head>
 <body>
     <div id="app">
-        <header class="w-full pt-1">
-            <div class="pb-2 flex flex-row items-center ">
-                <img class="w-12 h-12 rounded-md" src="../images/favicon.png" alt="logo">
-                <h2 class="text-lg text-center pl-3 ">UNITY BANK</h2>
+        <header class="w-full xl:h-12 flex-col md:flex-row">
+            <div class="pb-2 w-1/4 flex flex-row items-center ">
+                <img class="w-8 h-8 rounded-md" src="../images/favicon.png" alt="logo">
+                <h2 class="text-sm text-center  ">UNITY BANK</h2>
             </div>
-            <ul class="nav-list pt-2 ">
-                <li><a href="http://localhost:8080/web/pages/accounts.html" class=" text-lg">Accounts</a></li>
-                <li><a href="http://localhost:8080/web/pages/cards.html" class="text-lg">Cards</a></li>
-                <li><a href="http://localhost:8080/web/pages/loan-application.html" class="text-lg">Loans</a></li>
-                <li><a href="#" class="active text-lg">Transactions</a></li>
+            <ul class="nav-list  pt-2 xl:gap-10 xl:w-full 2xl:w-full 2xl:gap-12 2xl:text-xl">
+                <li><a href="http://localhost:8080/web/pages/accounts.html" class=" lg:text-lg">Accounts</a></li>
+                <li><a href="http://localhost:8080/web/pages/cards.html" class=" lg:text-lg">Cards</a></li>
+                <li><a href="http://localhost:8080/web/pages/loan-application.html" class=" lg:text-lg">Loans</a></li>
+                <li><a href="http://localhost:8080/web/pages/transfers.html" class="active lg:text-lg">Transactions</a></li>
+                <li v-on:click="logout()"><img class="w-6 h-6  md:w-10 md:h-10" src="../images/cerrar sesion.png"
+                    alt="cerrar sesion"></li>
             </ul>
-            <a href="" v-on:click="logout()" class="px-6 pt-2"><img class="w-10 h-10" src="../images/cerrar sesion.png"
-                    alt="cerrar sesion"></a>
         </header>
         <main class=" min-h-screen flex justify-center items-center mt-4">
             <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px]">

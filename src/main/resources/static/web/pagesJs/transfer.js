@@ -28,8 +28,14 @@ const app = createApp({
                 })
         },
         createTransfer() {
-            axios.post("/api/transactions/transfer?amount=" + this.amount +"&descriptions=" + this.description + "&sourceAccountNumber=" +
-             this.selectedAccount + "&targetAccountNumber=" + this.targetAccount + this.selectedAccount2 )
+            const body =
+            {
+              "amount":this.amount ,
+              "descriptions":this.description,
+              "sourceAccountNumber":this.selectedAccount,
+              "targetAccountNumber": this.targetAccount + this.selectedAccount2
+            }
+            axios.post("/api/transactions/transfer",body)
                 .then(response => {
                     this.data = response.data
                     console.log(this.data)

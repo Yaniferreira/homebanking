@@ -3,7 +3,7 @@ package com.mindhub.homebanking.Services.impl;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.ClientsRepositories;
+import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class ClientServiceImpl implements ClientService {
     @Autowired
-    private ClientsRepositories clientsRepositories;
+    private ClientRepository clientsRepositories;
 
     @Override
     public List<ClientDTO> getAllClientsDTO() {

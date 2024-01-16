@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/web/images/*","/web/index.html","/web/pagesCss/*","/web/pagesJs/*","/web/pages/*").permitAll()
-                .requestMatchers("/web/**","/api/clients/current","/api/accounts/*/transactions")
+                .requestMatchers("/web/**","/api/clients/current","/api/accounts/*/transactions","api/loans")
                 .hasAnyAuthority("CLIENT","ADMIN")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/clients","/api/login").permitAll()
@@ -38,17 +38,6 @@ public class SecurityConfig {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler((request, response, authentication) -> {
-                    if(request.isUserInRole("ADMIN")){
-                        System.out.println("User is in role ADMIN");
-                        response.sendRedirect("/h2-console/");
-                        clearAuthenticationAttributes(request);
-                    } else if (request.isUserInRole("CLIENT")){
-                        System.out.println("User is in role CLIENT");
-                        response.sendRedirect("/web/accounts.html");
-                        clearAuthenticationAttributes(request);
-                    } else {
-                        System.out.println("User has no recognized role");
-                    }
                 })
                 .failureHandler((request, response, exception) -> response.sendError(401))
                 .permitAll()

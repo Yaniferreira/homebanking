@@ -11,19 +11,19 @@
 
 <body>
     <div id="app">
-        <header class="h-[90px]">
+        <header>
             <button v-on:click="showModal" class="flex flex-col border-none w-full items-center justify-center">
                 <img class="h-[3rem] w-[3rem] justify-end bg-white" src="../web/images/login.png" alt="images-Access">
-                <h1 class="font-bold">Sign in</h1>
+                <h2 class="font-bold">Sign in</h2>
             </button>
         </header>
-        <main>
+        <main >
             <!-- Modal Login -->
             <div v-if="modalVisible"
                 class=" w-full  h-screen  bg-slate-400/40  fixed inset-0 z-10 flex justify-center items-center ">
                 <div class="w-11/12 h-auto md:w-3/4 md:h-3/4 flex justify-center items-center 
          rounded-2xl bg-beige shadow-lg  text-blue hover:text-orange">
-                    <div class=" w-full h-full flex flex-end flex-row-reverse ">
+                    <div class=" w-full h-full flex flex-end md:flex-row-reverse ">
                         <div class="container" id="container">
                             <div class="form-container sign-up-container">
                                 <button v-on:click="closeModal()"
@@ -32,21 +32,21 @@
                                         alt="cerrarModal">
                                 </button>
                                 <form action="#">
-                                    <h2 class="font-bold mb-2 text-lg">Create Account</h2>
-                                    <label for="firstName">First Name</label>
-                                    <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[280px] my-1" @input="getfirstName" type="text" id="firstName" placeholder="First Name" />
-                                    <label for="lastName">Last Name</label>
-                                    <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[280px] my-1" @input="getlastName" type="text" id="lastName" placeholder="Last Name" />
-                                    <label for="emailSignup">Email</label>
-                                    <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[280px] my-1" @input="getEmail" type="email" id="emailSignup" placeholder="Email" />
-                                    <label for="passwordSignup">Password</label>
+                                    <h2 class="font-bold mb-2 text-sm md:text-lg w-[140px] lg:w-[400px]">Create Account</h2>
+                                    <label for="firstName" class="w-[140px] text-sm md:text-lg">First Name</label>
+                                    <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[140px] md:w-[280px] my-1" @input="getfirstName" type="text" id="firstName" placeholder="First Name" />
+                                    <label for="lastName" class="w-[140px] text-sm md:text-lg">Last Name</label>
+                                    <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[140px] md:w-[280px] my-1" @input="getlastName" type="text" id="lastName" placeholder="Last Name" />
+                                    <label for="emailSignup" class="w-[140px] text-sm md:text-lg">Email</label>
+                                    <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[140px] md:w-[280px] my-1" @input="getEmail" type="email" id="emailSignup" placeholder="Email" />
+                                    <label for="passwordSignup" class="w-[140px] text-sm md:text-lg">Password</label>
                                     <div class="flex">
-                                        <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[280px] my-1" @input="getPassword" type="password" id="passwordSignup"
+                                        <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[140px] md:w-[280px] my-1" @input="getPassword" type="password" id="passwordSignup"
                                             placeholder="Password" />
                                         <i class="far fa-eye cursor-pointer" @click="togglePassword()"
                                             id="togglePassword"></i>
                                     </div>
-                                    <button class="px-2 mt-2" type="submit" @click.prevent="register()">Sign Up</button>
+                                    <button class="px-2 mt-2 w-[100px]" type="submit" @click.prevent="register()">Sign Up</button>
                                 </form>
                             </div>
                             <div class="form-container sign-in-container">
@@ -56,31 +56,31 @@
                                         alt="cerrarModal">
                                 </button>
                                 <form action="#">
-                                    <h2 class="font-bold mb-2 text-lg">Sign in</h2>
-                                    <label class="w-10" for="emailSignIn">Email</label>
-                                    <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[280px] my-1" @input="getEmail" :value="email" type="email" id="emailSignIn"
+                                    <h2 class="font-bold mb-2 text-lg w-[140px]">Sign in</h2>
+                                    <label class="w-10" for="emailSignIn" class="w-[140px] text-sm md:text-lg">Email</label>
+                                    <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[140px] md:w-[280px] my-1" @input="getEmail" :value="email" type="email" id="emailSignIn"
                                         placeholder="Email" />
-                                    <label for="passwordSignIn">Password</label>
+                                    <label for="passwordSignIn" class="w-[140px] text-sm md:text-lg">Password</label>
                                     <div class="flex">
-                                        <input class="bg-slate-300 border-none px-2 py-2 rounded-md w-[280px] my-1" @input="getPassword" :value="password" type="password"
+                                        <input class="bg-slate-300 border-none px-2 py-2 w-[140px] rounded-md md:w-[280px] my-1" @input="getPassword" :value="password" type="password"
                                             id="passwordSignIn" placeholder="Password" />
                                         <i class="far fa-eye cursor-pointer" @click="togglePassword()"
                                             id="togglePassword"></i>
                                     </div>
-                                    <button class="px-2 mt-2" type="submit" @click.prevent="signin()">Sign In</button>
+                                    <button class="px-2 mt-2 w-[100px]" type="submit" @click.prevent="signin()">Sign In</button>
                                 </form>
                             </div>
                             <div class="overlay-container">
                                 <div class="overlay">
-                                    <div class="overlay-panel overlay-left">
-                                        <h1>Welcome Back!</h1>
-                                        <p>To keep connected with us please login with your personal info</p>
-                                        <button @click="signInButton" class="px-2 mt-2 ghost">Sign In</button>
+                                    <div class="overlay-panel  overlay-left w-[170px] md:w-[300px] lg:w-1/2">
+                                        <h2>Welcome Back!</h2>
+                                        <p class="text-xs md:text-lg w-full text-center">To keep connected with us please login with your personal info</p>
+                                        <button @click="signInButton" class="px-2 mt-2 ghost w-[100px]">Sign In</button>
                                     </div>
-                                    <div class="overlay-panel overlay-right">
-                                        <h1>Hello, Friend!</h1>
-                                        <p>Enter your personal details and start journey with us</p>
-                                        <button @click="signUpButton" class="px-2 mt-2 ghost">Sign Up</button>
+                                    <div class="overlay-panel overlay-right w-[170px] md:w-[300px] lg:w-1/2">
+                                        <h2>Hello, Friend!</h2>
+                                        <p class="text-xs md:text-lg w-full text-center">Enter your personal details and start journey with us</p>
+                                        <button @click="signUpButton" class="px-2 mt-2 ghost w-[100px]">Sign Up</button>
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +88,24 @@
                     </div>
                 </div>
             </div>
-        </main>
+            <article class="art-index">
+                <img src="../web/images/banner.jpg" alt="" class="img-art">
+                <p class="order-paragraph py-1 px-1">Who are we?<br>
+                    We are a bank that was born in 1981 with a bold vision.
+                     From its humble beginnings, we have grown and evolved, becoming a reliable pillar for
+                      the community. With a unique focus on the customer and a commitment to innovation, 
+                      we have overcome challenges in the ever-changing financial world. 
+                      Today, we are leaders in integrity and excellence, contributing to economic development 
+                      with services that strengthen individuals and businesses alike</p>
+                </article>
+                <article class="art-index">
+                    <img src="../web/images/banner-2-viajes.jpg" alt="" class="img-art">
+                    <p class="order-paragraph py-1 px-1"> Mission: <br>
+                        The mission of Unity Bank is to meet the banking and financial needs of the national market by intermediating
+                        between savers and borrowers, with the aim of generating benefits for customers, shareholders,
+                        and employees. </p>
+                </article>
+                </main>
         <footer class="bg-white dark:bg-black">
             <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div class="md:flex md:justify-between">

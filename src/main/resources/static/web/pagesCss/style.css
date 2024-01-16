@@ -11,22 +11,22 @@
   font-family: 'Montserrat', sans-serif;
 }
 header{
-    width: 100%;
     padding-top: 1.2rem;
     display: flex;
-    justify-content: space-between;
-    align-items: start;
-    text-align: center;
-    height: 12vh;
+    align-items: center;
+    height: 15vh;
     position: fixed;
     padding: 10px;
     z-index: 1000;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
 }
 .nav-list{
     display:flex;
-   gap: 8rem;
+    gap: 1rem;
+    font-size: x-small;
+    width: 100%;
+    justify-content: space-between;
 }
 .nav-list li a{
     position: relative;
@@ -65,4 +65,14 @@ header{
 }
 .pepito{
     background-color: #ff5a00;
+}
+@media only screen and (min-width: 767px) and (max-width:1024px){
+    header{
+        height:12vh;
+    }
+    .nav-list{
+        display:flex;
+        gap: 5rem;
+    
+    }
 }

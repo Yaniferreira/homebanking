@@ -10,20 +10,20 @@
 </head>
 <body>
     <div id="app">
-    <header class="w-full pt-1">
-        <div class="pb-2 flex flex-row items-center ">
-            <img class="w-12 h-12 rounded-md" src="../images/favicon.png" alt="logo">
-            <h2 class="text-lg text-center pl-3 ">UNITY BANK</h2>
-        </div>
-        <ul class="nav-list pt-2 ">
-            <li><a href="http://localhost:8080/web/pages/accounts.html" class=" text-lg">Accounts</a></li>
-            <li><a href="http://localhost:8080/web/pages/cards.html" class="text-lg">Cards</a></li>
-            <li><a href="#" class="active text-lg">Loans</a></li>
-            <li><a href="http://localhost:8080/web/pages/transfers.html" class=" text-lg">Transactions</a></li>
-        </ul>
-        <a href="" v-on:click="logout()" class="px-6 pt-2"><img class="w-10 h-10" src="../images/cerrar sesion.png"
-                alt="cerrar sesion"></a>
-    </header>
+        <header class="w-full xl:h-12 flex-col md:flex-row">
+            <div class="pb-2 w-1/4 flex flex-row items-center ">
+                <img class="w-8 h-8 rounded-md" src="../images/favicon.png" alt="logo">
+                <h2 class="text-sm text-center  ">UNITY BANK</h2>
+            </div>
+            <ul class="nav-list  pt-2 xl:gap-10 xl:w-full 2xl:w-full 2xl:gap-12 2xl:text-xl">
+                <li><a href="http://localhost:8080/web/pages/accounts.html" class=" lg:text-lg">Accounts</a></li>
+                <li><a href="http://localhost:8080/web/pages/cards.html" class=" lg:text-lg">Cards</a></li>
+                <li><a href="http://localhost:8080/web/pages/loan-application.html" class="active lg:text-lg">Loans</a></li>
+                <li><a href="http://localhost:8080/web/pages/transfers.html" class=" lg:text-lg">Transactions</a></li>
+                <li v-on:click="logout()"><img class="w-6 h-6  md:w-10 md:h-10" src="../images/cerrar sesion.png"
+                    alt="cerrar sesion"></li>
+            </ul>
+        </header>
     <main class=" min-h-screen flex justify-center items-center">
       <form class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px]">
           <h1 class="text-2xl font-bold mb-4 text-center text-orange-600">Apply for a loan</h1>
@@ -32,8 +32,8 @@
               <select @Change="Payments" v-model="selectLoan"
                   class="mt-1 block w-full p-2 border border-gray-300 rounded-md ">
                   <option selected disabled value="1">Select Loan</option>
-                  <template v-if="data.length > 0" v-for="loan in data">
-                      <option :value="loan.id">{{loan.name}}({{"$"+loan.maxAmount}})</option>
+                  <template v-if="loans.length > 0" v-for="loan in loans">
+                    <option :value="loan.id">{{ loan.name }} ({{ "$" + loan.amount }})</option>
                   </template>
               </select>
           </div>
@@ -41,8 +41,8 @@
               <label class="block text-sm font-medium text-gray-600">Select your Payments:</label>
               <select class="mt-1 block w-full p-2 border border-gray-300 rounded-md" v-model="payments">
                   <option selected disabled value="1">Select Payment</option>
-                  <template v-for="Payment in paymentsFilter.payments">
-                      <option :value="Payment">{{Payment}}</option>
+                  <template v-for="payment in paymentsFilter">
+                      <option :value="payment">{{payment}}</option>
                   </template>
               </select>
           </div>

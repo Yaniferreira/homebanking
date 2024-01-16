@@ -7,7 +7,7 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.ClientLoan;
 import com.mindhub.homebanking.models.Loan;
 import com.mindhub.homebanking.repositories.ClientLoanRepository;
-import com.mindhub.homebanking.repositories.ClientsRepositories;
+import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.repositories.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class LoanServiceImpl implements LoanService {
     private LoanRepository loanRepository;
 
     @Autowired
-    private ClientsRepositories clientsRepositories;
+    private ClientRepository clientsRepositories;
 
     @Autowired
     private ClientLoanRepository clientLoanRepository;
@@ -59,8 +59,6 @@ public class LoanServiceImpl implements LoanService {
         if (requestedAmount <= 0 || requestedAmount > loan.getMaxAmount() || !loan.getPayments().contains(requestedPayments)) {
             return new ResponseEntity<>("Error applying for loan: Invalid loan application data.", HttpStatus.BAD_REQUEST);
         }
-
-        // solicitud del prestamo
         ClientLoan clientLoan = new ClientLoan(amountInterest, requestedPayments);
         client.addClientLoan(clientLoan);
         loan.ClientLoan(clientLoan);

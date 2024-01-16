@@ -8,8 +8,14 @@ const app = createApp({
         }
     },
     methods: {
-        createCard() {
-            axios.post("/api/clients/current/cards?color=" + this.selectedColor + "&type=" + this.selectedType)
+        createCard()
+         {const body =
+            {
+              "color":this.selectedColor,
+              "type":this.selectedType,
+              
+            }
+            axios.post("/api/clients/current/cards",body)
                 .then(response => {
                     console.log(response.card)
                 })
