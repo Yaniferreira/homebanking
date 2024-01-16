@@ -56,9 +56,21 @@
               <input v-model="accountDest" placeholder="Enter account" type="text" required class="w-full px-4 py-2 rounded-md border border-gray-300">
           </div>
           <div>
-              <button v-on:click="createLoans()" type="button"
+              <button v-on:click="showModal()" type="button"
                   class="w-full p-2 bg-orange-600 text-white rounded-md focus:outline-none focus:ring focus:border-blue-300">
                   Request Loan</button>
+                  <div v-if="modalVisible" class="pt-2 gap-1">
+                    <h2 >Are you sure about requesting this loan?</h2>
+                    <div  class="flex flex-row gap-1 w-full justify-around ">
+                    <button type="button" @click.prevent="createLoans()"
+                        class=" w-1/4 p-2 bg-orange-600 text-white rounded-md focus:outline-none focus:ring
+                        focus:ring-orange-300">
+                        Yes</button>
+                    <button type="button" v-on:click="closeModal()"
+                        class="w-1/4 p-2 bg-orange-600 text-white rounded-md focus:outline-none focus:ring focus:ring-orange-300">
+                        No</button>
+                    </div>
+                </div>
           </div>
       </form>
   </main>

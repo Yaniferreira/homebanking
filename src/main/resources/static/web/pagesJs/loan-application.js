@@ -9,6 +9,7 @@ const options = {
       payments:"1",
       paymentsFilter:"1",
       amount:"",
+      modalVisible: false,
     } 
   }, 
   created(){
@@ -56,6 +57,12 @@ loadLoans(){
                 }
             })
     },
+    showModal() {
+      this.modalVisible = true 
+  },
+  closeModal() {
+    this.modalVisible = false
+},
   }, 
 
 } 
