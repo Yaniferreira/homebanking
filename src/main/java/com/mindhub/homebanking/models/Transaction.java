@@ -9,6 +9,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private double amount;
+    private double totalAmount;
     private LocalDateTime date;
     private String description;
     private TransactionType type;
@@ -17,7 +18,6 @@ public class Transaction {
 
     public Transaction() {
     }
-
     public Transaction(double amount, LocalDateTime date, String description, TransactionType type) {
         this.amount = amount;
         this.date = date;

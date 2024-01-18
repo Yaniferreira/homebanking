@@ -1,6 +1,6 @@
-package com.mindhub.homebanking.Services.impl;
+package com.mindhub.homebanking.services.impl;
 
-import com.mindhub.homebanking.Services.TransactionService;
+import com.mindhub.homebanking.services.TransactionService;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

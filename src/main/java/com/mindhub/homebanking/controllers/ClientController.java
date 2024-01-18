@@ -1,10 +1,13 @@
 package com.mindhub.homebanking.controllers;
 
-import com.mindhub.homebanking.Services.ClientService;
+import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.dto.NewClientDTO;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.RoleType;
+import com.mindhub.homebanking.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,18 +15,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class ClientController {
     @Autowired
+    private AccountService accountService;
+    @Autowired
     private ClientService clientService;
-    @RequestMapping("/clients")
+    @GetMapping("/clients")
     public List<ClientDTO>getClient(){
         return clientService.getAllClientsDTO();
     }
-    @RequestMapping("/clients/{id}")
+    @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable  Long id){
        return clientService.getClientById(id);}
     @Autowired
@@ -55,15 +61,15 @@ public class ClientController {
         Client client = new Client(newClientDto.getFirstName(), newClientDto.getLastName(), newClientDto.getEmail(),
                 passwordEncoder.encode(newClientDto.getPassword()), RoleType.CLIENT);
         clientService.saveClient(client);
-
-        ResponseEntity<String> accountCreationResult = accountController.createAccountFirst(client);
-
-        if (accountCreationResult.getStatusCode() != HttpStatus.CREATED) {
-            return new ResponseEntity<>("Failed to create client account", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        String number;
+        do {
+            number =Utils.generate();
+        }while (accountService.existsByNumber(number));
+        Account accountFirs= new Account(number, LocalDate.now(),0,0);
+        client.addAccount(accountFirs);
+        accountService.saveAccount(accountFirs);
         return new ResponseEntity<>("Client and account created", HttpStatus.CREATED);
     }
-
     @GetMapping("/clients/current")
     public ResponseEntity<Object> getOneClient (Authentication authentication){
         ClientDTO clientDTO = clientService.getAuthClientDTO(authentication.getName());

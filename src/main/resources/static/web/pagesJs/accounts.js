@@ -4,7 +4,9 @@ data(){
     return{
          data:[],
          accounts:[],
-         loans:[]
+         loans:[],
+         accountId:"",
+         error:"",
         }
 },
 created(){
@@ -35,9 +37,44 @@ methods:{
     },
     newAccount(){
         axios.post("/api/clients/current/accounts")
-        .then(response => console.log(response))
-          .catch(response => console.log(error))
+        .then(response => {console.log(response)
+            Swal.fire({
+                title: "Success",
+                text: "Account created successfully",
+                icon: "success"
+            });
+            this.loadData()})
+          .catch(error =>{console.log(error)
+        this.error=error.response.data} )
         },
+        changeActive(accountId){
+            axios.patch("/api/clients/current/accounts?id= "+ accountId)
+            .then(response => {
+                Swal.fire({
+                    title: "Delete Account?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Proceed"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        Swal.fire({
+                            title: "Success",
+                            text: "Account Deleted Succesfully",
+                            icon: "success"
+                        });
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
+                    }
+                })})
+              .catch(error => console.log(error))
+              
+            },
     formatBudget(balance) {
         if (balance !== undefined && balance !== null) {
             return balance.toLocaleString("en-US", {

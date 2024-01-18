@@ -1,4 +1,4 @@
-package com.mindhub.homebanking.Services;
+package com.mindhub.homebanking.services;
 
 import com.mindhub.homebanking.models.Transaction;
 

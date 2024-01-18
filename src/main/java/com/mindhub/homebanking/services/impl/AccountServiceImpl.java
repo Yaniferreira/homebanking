@@ -1,9 +1,10 @@
-package com.mindhub.homebanking.Services.impl;
+package com.mindhub.homebanking.services.impl;
 
-import com.mindhub.homebanking.Services.AccountService;
-import com.mindhub.homebanking.Services.ClientService;
+import com.mindhub.homebanking.models.Card;
+import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.dto.AccountDTO;
-import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.dto.TransactionsDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.repositories.AccountRepository;
@@ -32,6 +33,12 @@ public class AccountServiceImpl implements AccountService {
     public AccountDTO getAccountById(Long id) {
         return accountRepository.findById(id).map(AccountDTO::new).orElse(null);
     }
+
+    @Override
+    public Account findById(Long id) {
+        return accountRepository.findById(id).orElse(null);
+    }
+
     @Override
     public List<TransactionsDTO> getTransactionsByAccountId(Long id) {
         return accountRepository.findById(id)
@@ -52,5 +59,16 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findByNumber(String number) {
         return accountRepository.findByNumber(number);
+    }
+    @Override
+    public void editAccount(Account account) {
+        Account accounts= accountRepository.findById(account.getId()).orElse(null);
+        accounts.setActive(false);
+        accountRepository.save(accounts);
+    }
+
+    @Override
+    public Account findByClientAndId(Client client, Long id) {
+        return accountRepository.findByClientAndId(client,id);
     }
 }

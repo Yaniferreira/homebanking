@@ -34,7 +34,7 @@
                         <select v-model="selectedAccount" class="mt-1 block w-full p-2 border  rounded-md ">
                             <option >Select Account</option>
                             <template v-if="data.length > 0" v-for="account in data">
-                                <option>{{account.number}}</option>
+                                <option :value="account.id">{{account.number}}({{ "$" + account.balance}})</option>
                             </template>
                         </select>
                     </div>
@@ -78,7 +78,7 @@
                     </div>
                     <div>
                         <button type="button" v-on:click="showModal"
-                            class="w-full p-2 bg-orange-600 text-white rounded-md focus:outline-none focus:ring focus:ring-orange-300">Send
+                            class="w-[180px] p-2 bg-orange-600 text-white rounded-md focus:outline-none focus:ring focus:ring-orange-300">Send
                             Cash</button>
                     </div>
                     <div v-if="modalVisible">

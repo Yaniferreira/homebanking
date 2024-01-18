@@ -10,19 +10,20 @@ public class Card {
 private Long id;
 private CardType type;
 private String number;
-private int securityCode;
+private String securityCode;
 private LocalDate creationDate;
 private LocalDate expirationDate;
 private String cardHolder;
 @ManyToOne
 private Client client;
 private CardColor color;
+private boolean active=true;
 
     public Card() {
     }
 
-    public Card(CardType type, String number, int securityCode, LocalDate creationDate,
-                LocalDate expirationDate, String cardHolder, CardColor color) {
+    public Card(CardType type, String number, String securityCode, LocalDate creationDate,
+                LocalDate expirationDate, String cardHolder, CardColor color,boolean active) {
         this.type = type;
         this.number = number;
         this.securityCode = securityCode;
@@ -30,6 +31,7 @@ private CardColor color;
         this.expirationDate = expirationDate;
         this.cardHolder = cardHolder;
         this.color = color;
+        this.active = active;
     }
 
     public Long getId() {
@@ -52,11 +54,11 @@ private CardColor color;
         this.number = number;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
@@ -98,5 +100,12 @@ private CardColor color;
 
     public void setCardHolder(String cardHolder) {
         this.cardHolder = cardHolder;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

@@ -66,6 +66,9 @@ header{
 .pepito{
     background-color: #ff5a00;
 }
+.expired{
+   color:red;
+}
 @media only screen and (min-width: 767px) and (max-width:1024px){
     header{
         height:12vh;

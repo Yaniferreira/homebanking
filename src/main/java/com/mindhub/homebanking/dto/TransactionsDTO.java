@@ -10,6 +10,7 @@ public class TransactionsDTO {
     private double amount;
     private LocalDateTime date;
     private String description;
+
     private TransactionType type;
     public TransactionsDTO(Transaction transaction){
         id= transaction.getId();
@@ -26,6 +27,7 @@ public class TransactionsDTO {
     public double getAmount() {
         return amount;
     }
+
 
     public LocalDateTime getDate() {
         return date;

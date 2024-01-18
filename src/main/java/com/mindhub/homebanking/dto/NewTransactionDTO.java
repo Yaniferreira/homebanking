@@ -6,7 +6,6 @@ public class NewTransactionDTO {
     private Long amount;
     private String descriptions,sourceAccountNumber,targetAccountNumber;
 
-
     public Long getAmount() {
         return amount;
     }

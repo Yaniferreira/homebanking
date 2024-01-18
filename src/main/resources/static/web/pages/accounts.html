@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../pagesCss/style.css">
     <title>Accounts</title>
@@ -50,6 +51,7 @@
                                 :href="'account.html?id='+account.id">my transactions</a>
                         </article>
                     </div>
+                    <button @click="changeActive(account.id)" class="text-sm py-1 px-1 mt-1 rounded-xl hover:bg-red-400 bg-red-600 text-white">Delete Account</button>
                 </template>
                 <div class="flex flex-col md:pt-5 lg:w-1/2 justify-start items-center" v-if="loans.length > 0">
                     <h2 class=" text-lg md:text-2xl text-center text-orange-600 font-semibold  pb-3">Your Loans</h2>

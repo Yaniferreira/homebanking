@@ -17,10 +17,10 @@ const app = createApp({
             }
             axios.post("/api/clients/current/cards",body)
                 .then(response => {
-                    console.log(response.card)
+                    console.log(response)
                 })
                 .catch(error => {
-                    console.log(error.response.data)
+                    console.log(error)
                 })
         },
         logout(){

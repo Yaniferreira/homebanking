@@ -1,6 +1,6 @@
-package com.mindhub.homebanking.Services.impl;
+package com.mindhub.homebanking.services.impl;
 
-import com.mindhub.homebanking.Services.LoanService;
+import com.mindhub.homebanking.services.LoanService;
 import com.mindhub.homebanking.dto.LoanApplicationDTO;
 import com.mindhub.homebanking.dto.LoanDTO;
 import com.mindhub.homebanking.models.Client;
@@ -23,7 +23,7 @@ public class LoanServiceImpl implements LoanService {
     private LoanRepository loanRepository;
 
     @Autowired
-    private ClientRepository clientsRepositories;
+    private ClientRepository clientsRepository;
 
     @Autowired
     private ClientLoanRepository clientLoanRepository;
@@ -36,7 +36,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public ResponseEntity<String> applyForLoan(LoanApplicationDTO loanApplicationDTO, String email) {
-        Client client = clientsRepositories.findByEmail(email);
+        Client client = clientsRepository.findByEmail(email);
 
 
         if (client == null) {

@@ -11,11 +11,12 @@ public class CardDTO {
     private Long id;
     private CardType type;
     private String number;
-    private int securityCode;
+    private String securityCode;
     private LocalDate creationDate;
     private LocalDate expirationDate;
     private CardColor color;
    private String cardHolder;
+   private boolean active=true;
     public CardDTO(Card card){
         id= card.getId();
         type=card.getType();
@@ -25,6 +26,7 @@ public class CardDTO {
         expirationDate=card.getExpirationDate();
         color=card.getColor();
         cardHolder=card.getCardHolder();
+        active= card.isActive();
     }
 
     public Long getId() {
@@ -39,7 +41,7 @@ public class CardDTO {
         return number;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
@@ -57,5 +59,9 @@ public class CardDTO {
 
     public String getCardHolder() {
         return cardHolder;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }

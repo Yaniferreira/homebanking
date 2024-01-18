@@ -14,6 +14,9 @@ public class Account {
   private String number;
   private LocalDate creationDate;
   private double balance;
+  private double totalBalance;
+  private boolean active=true;
+  private AccountType type;
   @ManyToOne
   private Client client;
   @OneToMany(mappedBy = "account",fetch = FetchType.EAGER)
@@ -22,10 +25,12 @@ public class Account {
   public Account() {
   }
 
-  public Account(String number, LocalDate creationDate, double balance) {
+  public Account(String number, LocalDate creationDate, double balance,double totalBalance) {
     this.number = number;
     this.creationDate = creationDate;
     this.balance = balance;
+    this.totalBalance=totalBalance;
+    this.active = active;
   }
 
   public Long getId() {
@@ -54,6 +59,30 @@ public class Account {
 
   public void setBalance(double balance) {
     this.balance = balance;
+  }
+
+  public double getTotalBalance() {
+    return totalBalance;
+  }
+
+  public void setTotalBalance(double totalBalance) {
+    this.totalBalance = totalBalance;
+  }
+
+  public AccountType getType() {
+    return type;
+  }
+
+  public void setType(AccountType type) {
+    this.type = type;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
   }
 
   public Client getClient() {

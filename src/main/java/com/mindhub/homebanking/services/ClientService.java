@@ -1,4 +1,4 @@
-package com.mindhub.homebanking.Services;
+package com.mindhub.homebanking.services;
 
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Client;
@@ -19,4 +19,5 @@ public interface ClientService {
     boolean existsByEmail(String email);
 
     void saveClient(Client client);
+    Client findByEmail(String email);
 }

@@ -11,12 +11,16 @@ public class AccountDTO {
     private String number;
     private LocalDate creationDate;
     private double balance;
+    private double totalBalance;
+    private boolean active=true;
     private List<TransactionsDTO>transactions;
     public AccountDTO(Account account){
         id= account.getId();
        number= account.getNumber();
        creationDate=account.getCreationDate();
        balance=account.getBalance();
+       totalBalance=account.getTotalBalance();
+       active= account.isActive();
        transactions=account.getTransactions()
                .stream()
                .map(transaction -> new TransactionsDTO(transaction))
@@ -37,6 +41,10 @@ public class AccountDTO {
 
     public double getBalance() {
         return balance;
+    }
+
+    public double getTotalBalance() {
+        return totalBalance;
     }
 
     public List<TransactionsDTO> getTransactions() {

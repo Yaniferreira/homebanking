@@ -1,8 +1,8 @@
 package com.mindhub.homebanking.controllers;
 
-import com.mindhub.homebanking.Services.AccountService;
-import com.mindhub.homebanking.Services.ClientService;
-import com.mindhub.homebanking.Services.LoanService;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.LoanService;
 import com.mindhub.homebanking.dto.LoanApplicationDTO;
 import com.mindhub.homebanking.dto.LoanDTO;
 import com.mindhub.homebanking.models.Account;
@@ -68,9 +68,8 @@ public class LoanController {
             Transaction creditTransaction = new Transaction(account, LocalDateTime.now(),
                     loanApplicationDTO.getAmount(), TransactionType.CREDIT,
                     "Loan approved for " + loanDTO.getName());
-
+            account.addTransaccion(creditTransaction);
             transactionRepository.save(creditTransaction);
-
             account.setBalance(account.getBalance() + loanApplicationDTO.getAmount());
             accountService.saveAccount(account);
             return ResponseEntity.ok(response.getBody());

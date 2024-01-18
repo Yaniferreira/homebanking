@@ -39,7 +39,7 @@
                         class="flex flex-col border border-black items-center px-2 w-[220px] h-[150px] md:w-[300px] md:h-[180px] gap-4 rounded-md">
                         <h2 class="text-xs md:text-lg font-semibold pt-2">Account Number: {{account.number}}</h2>
                         <h2 class="text-xs md:text-lg font-semibold">Amount:</h2>
-                        <p class="text-xs md:text-lg font-semibold">{{formatBudget(account.balance)}}</p>
+                        <p class="text-xs md:text-lg font-semibold">{{formatBudget(account.totalBalance)}}</p>
                         <h2 class="text-xs md:text-lg font-semibold">Creation Date: {{account.creationDate}}</h2>
                     </article>
                 </div>
@@ -48,24 +48,26 @@
                     <table class="w-[300px] justify-center text-xs gap-1 md:w-[660px] border md:text-lg text-left overflow-x-auto">
                         <thead>
                             <tr class="bg-orange-100">
-                                <th class="w[30px] md:w-[150px] pl-3">Data</th>
-                                <th class="w-[50px] md:w-[180px]">Description</th>
-                                <th class="pl-2 md:w-[150px]">Type</th>
-                                <th class="w-[50px] md:w-[180px]">Amount</th>
+                                <th class="w[30px] md:w-[140px] pl-3">Data</th>
+                                <th class="w-[50px] md:w-[150px]">Description</th>
+                                <th class="pl-2 md:w-[140px]">Type</th>
+                                <th class="w-[50px] md:w-[130px]">Amount</th>
+                                <th class="w-[50px] md:w-[100px]">Total Balance</th>
                             </tr>
                         </thead>
                         <tbody>
                             <template v-if="transactions.length > 0" v-for="transaction in transactions">
                                 <tr class="border-t-2 border-b-0  bg-orange-200">
-                                    <td class="w[30px] md:w-[150px] pl-3">
+                                    <td class="w[30px] md:w-[140px] pl-3">
                                         <span>{{ formatDate(transaction.date) }}</span>
                                         <br />
                                         <span>{{ formatTime(transaction.date) }}</span>
                                     </td>
-                                    <td class="w-[50px] md:w-[180px]">{{transaction.description}}</td>
-                                    <td v-if="transaction.type === 'CREDIT'" class="text-green-800 font-semibold md:w-[150px] ">{{transaction.type}}</td>
-                                    <td  v-else class="text-red-700 font-semibold md:w-[150px]">{{transaction.type}}</td>
-                                    <td class="w-[50px] md:w-[180px]">{{formatBudget(transaction.amount)}}</td>
+                                    <td class="w-[50px] md:w-[150px]">{{transaction.description}}</td>
+                                    <td v-if="transaction.type === 'CREDIT'" class="text-green-800 font-semibold md:w-[140px] ">{{transaction.type}}</td>
+                                    <td  v-else class="text-red-700 font-semibold md:w-[140px]">{{transaction.type}}</td>
+                                    <td class="w-[50px] md:w-[130px]">{{formatBudget(transaction.amount)}}</td>
+                                    <td>{{account.totalBalance}}</td>
                                 </tr>
                             </template>
                         </tbody>

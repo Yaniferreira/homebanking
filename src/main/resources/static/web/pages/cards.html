@@ -44,7 +44,7 @@
                                     <img v-if="card.color == 'GOLD'" class=" object-cover  rounded-xl" src="../images/card-gold.png">
                                     <img v-if="card.color == 'TITANIUM'" class=" object-cover  rounded-xl" src="../images/cardTitanium.png">
                                     <img v-if="card.color == 'SILVER'" class=" object-cover  rounded-xl" src="../images/cardSilver.png">
-                                    <div class="w-full text-xs lg:text-lg px-4 lg:px-6 absolute top-7">
+                                    <div class="w-full text-xs lg:text-lg px-4 lg:px-6 absolute top-7 ">
                                         <div class="flex justify-between">
                                             <p class="font-bold tracking-widest">
                                                 {{card.color}}
@@ -66,11 +66,12 @@
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p class="font-light text-xs">
+                                                    <p :class="{ 'expired': card.expired }" class="font-light text-xs">
                                                         Expiry
                                                         </h1>
-                                                    <p class="font-medium tracking-wider text-xs lg:text-sm">
+                                                    <p :class="{ 'expired': card.expired }"  class="font-medium tracking-wider text-xs lg:text-sm">
                                                         {{card.expirationDate}}
+                                                        
                                                     </p>
                                                 </div>
                                             </div>
@@ -81,6 +82,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button @click="changeActive(card.id)" class="text-sm py-1 px-1 mt-1 rounded-xl hover:bg-red-400 bg-red-600 text-white">Delete Card</button>
                             </div>
                         </template>
                         <template v-if="card.type == 'CREDIT'">
@@ -115,10 +117,10 @@
                                                     </p>
                                                 </div>
                                                 <div class="">
-                                                    <p class="font-light text-xs ">
+                                                    <p :class="{ 'expired': card.expired }" class="font-light text-xs ">
                                                         Expiry
                                                         </h1>
-                                                    <p class="font-medium tracking-wider text-xs lg:text-sm">
+                                                    <p :class="{ 'expired': card.expired }" class="font-medium tracking-wider text-xs lg:text-sm">
                                                         {{card.expirationDate}}
                                                     </p>
                                                 </div>
@@ -128,9 +130,9 @@
                                                 <h3>{{card.type}}</h3>
                                             </div>
                                         </div>
-    
                                     </div>
                                 </div>
+                                <button @click="changeActive(card.id)" class="text-sm py-1 px-1 mt-1 rounded-xl hover:bg-red-400 bg-red-600 text-white">Delete Card</button>
                             </div>
                         </template>
                     </template>

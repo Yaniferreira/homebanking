@@ -22,6 +22,7 @@ public class SecurityConfig {
                 .requestMatchers("/web/**","/api/clients/current","/api/accounts/*/transactions","api/loans")
                 .hasAnyAuthority("CLIENT","ADMIN")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.PATCH,"/api/clients/current/cards","/api/clients/current/accounts").hasAnyAuthority("CLIENT")
                 .requestMatchers(HttpMethod.POST, "/api/clients","/api/login").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards",
                         "api/clients/current/accounts/first","/api/transactions/transfer","/api/loans").hasAuthority("CLIENT")

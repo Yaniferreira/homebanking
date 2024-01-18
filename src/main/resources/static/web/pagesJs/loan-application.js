@@ -3,20 +3,33 @@ const {createApp} = Vue
 const options = {
   data(){
     return {
+      data:[],
       loans:[],
       selectLoan:"1",
-      accountDest: "",
+      accountDest: "1",
       payments:"1",
       paymentsFilter:"1",
       amount:"",
       modalVisible: false,
+      selectedAccount:"1",
     } 
   }, 
   created(){
     this.loadLoans()
+    this.loadData()
   }, 
 
   methods:{
+    loadData() {
+      axios.get("/api/clients/current")
+          .then(response => {
+              this.data = response.data.accounts
+              console.log(this.data)
+          })
+          .catch(error => {
+              console.log(error)
+          })
+  },
 loadLoans(){
     axios.get("/api/loans")
     .then(response=>{

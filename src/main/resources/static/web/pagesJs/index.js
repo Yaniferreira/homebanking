@@ -20,8 +20,17 @@ const app = Vue.createApp({
                 window.location.href="/web/pages/accounts.html"
             })
         },
+        
 		register() {
-            axios.post("/api/clients?firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
+            const body =
+            {
+              "firstName":this.firstName,
+              "lastName":this.lastName,
+              "password":this.password,
+              "email":this.email,
+              
+            }
+            axios.post("/api/clients",body)
                 .then(response => {
                     console.log("registered" + this.email)
                     this.signin()

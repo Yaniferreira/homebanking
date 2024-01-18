@@ -1,8 +1,8 @@
 package com.mindhub.homebanking.controllers;
 
-import com.mindhub.homebanking.Services.AccountService;
-import com.mindhub.homebanking.Services.ClientService;
-import com.mindhub.homebanking.Services.TransactionService;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransactionService;
 import com.mindhub.homebanking.dto.NewTransactionDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
@@ -68,14 +68,14 @@ public class TransactionController {
             return new ResponseEntity<>("Source and Target account cannot be the same", HttpStatus.FORBIDDEN);
         }
 
-        Transaction debitTransaction = new Transaction(newTransactionDTO.getAmount(),LocalDateTime.now(),newTransactionDTO.getDescriptions(), TransactionType.DEBIT);
-        Transaction creditTransaction = new Transaction(newTransactionDTO.getAmount(),LocalDateTime.now(),newTransactionDTO.getDescriptions(), TransactionType.CREDIT);
-
+        Transaction debitTransaction = new Transaction(newTransactionDTO.getAmount(), LocalDateTime.now(),newTransactionDTO.getDescriptions(), TransactionType.DEBIT);
+        Transaction creditTransaction = new Transaction(newTransactionDTO.getAmount(), LocalDateTime.now(),newTransactionDTO.getDescriptions(), TransactionType.CREDIT);
+        debitTransaction.setAccount(sourceAccount);
+        creditTransaction.setAccount(targetAccount);
         transactionService.saveTransaction(debitTransaction);
         transactionService.saveTransaction(creditTransaction);
-
-        sourceAccount.setBalance(sourceAccount.getBalance() - newTransactionDTO.getAmount());
-        targetAccount.setBalance(targetAccount.getBalance() + newTransactionDTO.getAmount());
+        sourceAccount.setTotalBalance(sourceAccount.getBalance() - newTransactionDTO.getAmount());
+        targetAccount.setTotalBalance(targetAccount.getBalance() + newTransactionDTO.getAmount());
         accountService.saveAccount(sourceAccount);
         accountService.saveAccount(targetAccount);
 

@@ -1,6 +1,6 @@
-package com.mindhub.homebanking.Services.impl;
+package com.mindhub.homebanking.services.impl;
 
-import com.mindhub.homebanking.Services.ClientService;
+import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class ClientServiceImpl implements ClientService {
     @Autowired
-    private ClientRepository clientsRepositories;
+    private ClientRepository clientsRepository;
 
     @Override
     public List<ClientDTO> getAllClientsDTO() {
@@ -21,7 +21,7 @@ public class ClientServiceImpl implements ClientService {
     }
     @Override
     public Client getAuthClient(String email) {
-        return clientsRepositories.findByEmail(email);
+        return clientsRepository.findByEmail(email);
     }
 
     @Override
@@ -31,21 +31,26 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDTO getClientById(Long id) {
-        return clientsRepositories.findById(id).map(ClientDTO::new).orElse(null);
+        return clientsRepository.findById(id).map(ClientDTO::new).orElse(null);
     }
 
     @Override
     public List <Client> getAllClients(){
-        return clientsRepositories.findAll();
+        return clientsRepository.findAll();
     }
 
     @Override
     public boolean existsByEmail(String email){
-        return clientsRepositories.existsByEmail(email);
+        return clientsRepository.existsByEmail(email);
     }
 
     @Override
     public void saveClient(Client client){
-        clientsRepositories.save(client);
+        clientsRepository.save(client);
+    }
+
+    @Override
+    public Client findByEmail(String email) {
+        return clientsRepository.findByEmail(email);
     }
 }

@@ -10,6 +10,7 @@ data(){
 },
 created(){
 this.loadData()
+this.cardExpire()
 },
 methods:{
     loadData(){
@@ -21,6 +22,7 @@ methods:{
             console.log(this.data);
             console.log(this.accounts);
             console.log(this.cards);
+            this.cardExpire()
         })
         .catch(error=> console.log(error))
     },
@@ -33,7 +35,21 @@ methods:{
                 }
             })
     },
-    
+    changeActive(cardId){
+        axios.patch("/api/clients/current/cards?id= "+ cardId)
+        .then(response =>{
+             console.log(response)
+             this.loadData()})
+          .catch(error => console.log(error))
+          
+        },
+        cardExpire() {
+            const currentDate = new Date();
+                this.cards.forEach(card => {
+                const truDate = new Date(card.expirationDate);  
+                card.expired = truDate < currentDate;
+            });
+        },
 
 }
 
